@@ -30,6 +30,6 @@ class SensorManager:
       self.__updateState(InitialState())
       self.currentState.turnOnLeds(self.redLed, self.greenLed)
 
-  def estimateDistance(self):
+  def process(self):
     print("Current State: ", self.currentState)
     self.__stateChecking()
