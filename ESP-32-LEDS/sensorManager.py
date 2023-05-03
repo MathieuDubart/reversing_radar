@@ -1,8 +1,10 @@
 from sensorsStates import *
 
 class SensorManager:
-  def __init__(self, sensor, redLed, greenLed):
-    self.sensor = sensor
+  def __init__(self, value, redLed, greenLed, lowParam = 2, highParam = 40):
+    self.value = value
+    self.lowParam = lowParam
+    self.highParam = highParam
     self.redLed = redLed
     self.greenLed = greenLed
     self.currentState = InitialState()
@@ -15,21 +17,18 @@ class SensorManager:
       print("New State: ", self.currentState)
   
   def __stateChecking(self):
-    if self.currentState.getDistance() >= 40.0:
-      self.redLed.value(0)
-      self.greenLed.value(1)
+    if self.value > self.highParam:
       self.__updateState(FarState())
+      self.currentState.turnOnLeds(self.redLed, self.greenLed)
 
 
-    elif 2.0 < self.currentState.getDistance() < 40.0:
-      self.redLed.value(1)
-      self.greenLed.value(0)
+    elif self.lowParam < self.value =< self.highParam:
       self.__updateState(NearState())
+      self.currentState.turnOnLeds(self.redLed, self.greenLed)
 
     else:
-      self.redLed.value(0)
-      self.greenLed.value(0)
       self.__updateState(InitialState())
+      self.currentState.turnOnLeds(self.redLed, self.greenLed)
 
   def estimateDistance(self):
     print("Current State: ", self.currentState)

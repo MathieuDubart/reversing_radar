@@ -8,7 +8,7 @@ from wireless_manager import *
 
 class BLECallback(CommunicationCallback):
 
-    def __init__(self,bleName="default"):
+    def __init__(self,bleName="sensorEsp"):
         self.bleName = bleName
     
     def connectionCallback(self):

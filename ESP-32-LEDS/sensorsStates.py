@@ -2,7 +2,7 @@ class SensorsStates:
   def __init__(self):
     pass
 
-  def getDistance(self):
+  def turnOnLeds(self, redLed, greenLed):
     pass
 
 
@@ -13,8 +13,9 @@ class InitialState(SensorsStates):
   def __str__(self):
       return "initialstate"
     
-  def getDistance(self):
-    return self.context.sensor.getDistance()
+  def turnOnLeds(self, redLed, greenLed):
+    self.redLed.value(0)
+    self.greenLed.value(0)
   
 
 class FarState(SensorsStates):
@@ -24,8 +25,9 @@ class FarState(SensorsStates):
   def __str__(self):
     return "farstate"
   
-  def getDistance(self):
-    return self.context.sensor.getDistance()
+  def turnOnLeds(self, redLed, greenLed):
+    self.redLed.value(0)
+    self.greenLed.value(1)
 
 
 class NearState(SensorsStates):
@@ -35,5 +37,6 @@ class NearState(SensorsStates):
   def __str__(self):
     return "nearstate"
 
-  def getDistance(self):
-    return self.context.sensor.getDistance()
+  def turnOnLeds(self, redLed, greenLed):
+    self.redLed.value(1)
+    self.greenLed.value(0)
