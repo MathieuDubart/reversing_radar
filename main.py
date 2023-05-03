@@ -4,7 +4,6 @@ import random
 import struct
 import time
 from hcsr04 import *
-from sensorManager import *
 from wireless_manager import *
 
 class BLECallback(CommunicationCallback):
@@ -37,27 +36,13 @@ sensor3 = HCSR04(trigger_pin=16, echo_pin=4, echo_timeout_us=10000)
 sensor4 = HCSR04(trigger_pin=21, echo_pin=19, echo_timeout_us=10000)
 # redLed4 = Pin(26, Pin.OUT)
 # greenLed4 = Pin(14, Pin.OUT)
-
-# sensorManager1 = SensorManager(sensor1, redLed1, greenLed1)
-# sensorManage2 = SensorManager(sensor2, redLed1, greenLed1)
-# sensorManager3 = SensorManager(sensor3, redLed1, greenLed1)
-# sensorManager4 = SensorManager(sensor4, redLed1, greenLed1)
-
     
 wirelessManager = WirelessManager(BLECallback())
 
 try:
     while True:
-        #distance = sensor.distance_cm()
-        #sensorManager.estimateDistance()
-        #print("A:",sensor1.getDistance())
-        #print("B:",sensor2.getDistance())
-        # print("C:",sensor3.getDistance())
-        # print("D:",sensor4.getDistance())
-
-        sleep_ms(100)
-        
-        wirelessManager.sendDataToBLE("Hoho BLE")
+        sleep_ms(250)
+        wirelessManager.sendDataToBLE("{}#{}#{}#{}".format(sensor1.getDistance(), sensor2.getDistance(), sensor3.getDistance(), sensor4.getDistance()))
             
 except KeyboardInterrupt:
     pass

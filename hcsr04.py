@@ -1,6 +1,7 @@
 import machine, time
 from machine import Pin
 from sensorsStates import *
+import math
 
 __version__ = '0.2.0'
 __author__ = 'Roberto Sánchez'
@@ -53,7 +54,7 @@ class HCSR04:
     def getDistance(self):
         """
         Get the distance in centimeters with floating point operations.
-        It returns a float
+        It returns an int
         """
         pulse_time = self._send_pulse_and_wait()
 
@@ -62,4 +63,4 @@ class HCSR04:
         # the sound speed on air (343.2 m/s), that It's equivalent to
         # 0.034320 cm/us that is 1cm each 29.1us
         cms = (pulse_time / 2) / 0.034
-        return float(cms)
+        return math.floor(cms)

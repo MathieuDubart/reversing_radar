@@ -33,3 +33,4 @@ class WirelessManager:
         if self.bleCallback != None:
             if self.blePeripheral.is_connected():
                 self.blePeripheral.send(data)
+                print("Message send:", data)
