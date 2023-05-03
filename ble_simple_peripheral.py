@@ -130,7 +130,7 @@ class BLESimplePeripheral:
         self._connections = set()
         self._write_callback = None
         self._payload = advertising_payload(name=name, services=[_UART_UUID])
-        self._advertise() 
+        self._advertise()
 
     def _irq(self, event, data):
         # Track connections so we can send notifications.

@@ -9,7 +9,7 @@ from wireless_manager import *
 
 class BLECallback(CommunicationCallback):
 
-    def __init__(self,bleName="Default-Test-ESP"):
+    def __init__(self,bleName="default"):
         self.bleName = bleName
     
     def connectionCallback(self):
@@ -44,21 +44,20 @@ sensor4 = HCSR04(trigger_pin=21, echo_pin=19, echo_timeout_us=10000)
 # sensorManager4 = SensorManager(sensor4, redLed1, greenLed1)
 
     
-# wirelessManager = WirelessManager(BLECallback("HeyHey"))
+wirelessManager = WirelessManager(BLECallback())
 
 try:
     while True:
         #distance = sensor.distance_cm()
-        # sensorManager.estimateDistance()
-        print("################################")
-        print("Capteur 1: ",sensor1.getDistance())
-        print("Capteur 2: ",sensor2.getDistance())
-        print("Capteur 3: ",sensor3.getDistance())
-        print("Capteur 4: ",sensor4.getDistance())
-        print("################################")
+        #sensorManager.estimateDistance()
+        #print("A:",sensor1.getDistance())
+        #print("B:",sensor2.getDistance())
+        # print("C:",sensor3.getDistance())
+        # print("D:",sensor4.getDistance())
+
         sleep_ms(100)
         
-        # wirelessManager.sendDataToBLE("Hoho BLE")
+        wirelessManager.sendDataToBLE("Hoho BLE")
             
 except KeyboardInterrupt:
     pass
