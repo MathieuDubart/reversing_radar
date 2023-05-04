@@ -35,4 +35,5 @@ class BluetoothManager():
 
   def receive(self):
     self.central.on_notify(self._on_rx)
-    print("Disconnected")
+  
+  print("Disconnected")
