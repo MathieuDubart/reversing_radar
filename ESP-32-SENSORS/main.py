@@ -8,7 +8,7 @@ from wireless_manager import *
 
 class BLECallback(CommunicationCallback):
 
-    def __init__(self,bleName="sensorEsp"):
+    def __init__(self,bleName="sensor"):
         self.bleName = bleName
     
     def connectionCallback(self):
@@ -41,8 +41,13 @@ wirelessManager = WirelessManager(BLECallback())
 
 try:
     while True:
-        sleep_ms(250)
-        wirelessManager.sendDataToBLE("{}#{}#{}#{}".format(sensor1.getDistance(), sensor2.getDistance(), sensor3.getDistance(), sensor4.getDistance()))
+        print(sensor1.getDistance())
+        print(sensor2.getDistance())
+        print(sensor3.getDistance())
+        print(sensor4.getDistance())
+
+        sleep_ms(1000)
+        #wirelessManager.sendDataToBLE("{}#{}#{}#{}".format(sensor1.getDistance(), sensor2.getDistance(), sensor3.getDistance(), sensor4.getDistance()))
             
 except KeyboardInterrupt:
     pass

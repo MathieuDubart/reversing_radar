@@ -1,6 +1,5 @@
 import machine, time
 from machine import Pin
-from sensorsStates import *
 import math
 
 __version__ = '0.2.0'
@@ -28,9 +27,6 @@ class HCSR04:
 
         # Init echo pin (in)
         self.echo = Pin(echo_pin, mode=Pin.IN, pull=None)
-
-        self.currentState = InitialState()
-        self.currentState.context = self
 
     def _send_pulse_and_wait(self):
         """
@@ -62,5 +58,5 @@ class HCSR04:
         # (the pulse walk the distance twice) and by 29.1 becasue
         # the sound speed on air (343.2 m/s), that It's equivalent to
         # 0.034320 cm/us that is 1cm each 29.1us
-        cms = (pulse_time / 2) / 0.034
+        cms = (pulse_time / 2) / 29.1
         return math.floor(cms)

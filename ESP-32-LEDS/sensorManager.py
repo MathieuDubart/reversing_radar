@@ -22,7 +22,7 @@ class SensorManager:
       self.currentState.turnOnLeds(self.redLed, self.greenLed)
 
 
-    elif self.lowParam < self.value =< self.highParam:
+    elif self.lowParam < self.value <= self.highParam:
       self.__updateState(NearState())
       self.currentState.turnOnLeds(self.redLed, self.greenLed)
 
