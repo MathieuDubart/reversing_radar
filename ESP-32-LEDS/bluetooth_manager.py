@@ -35,8 +35,4 @@ class BluetoothManager():
 
   def receive(self):
     self.central.on_notify(self._on_rx)
-    with_response = False
-
-    sleep(5000 if with_response else 5000)
-
     print("Disconnected")
