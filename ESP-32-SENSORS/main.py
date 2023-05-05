@@ -42,7 +42,8 @@ wirelessManager = WirelessManager(BLECallback())
 try:
     while True:
         sleep_ms(1000)
-        wirelessManager.sendDataToBLE("{}#{}#{}#{}".format(sensor1.getDistance(), sensor2.getDistance(), sensor3.getDistance(), sensor4.getDistance()))
+        wirelessManager.send("{}#{}#{}#{}".format(sensor1.getDistance(), sensor2.getDistance(), sensor3.getDistance(), sensor4.getDistance()))
+        wirelessManager.on_write()
             
 except KeyboardInterrupt:
     pass
