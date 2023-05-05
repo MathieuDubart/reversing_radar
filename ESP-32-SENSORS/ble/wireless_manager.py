@@ -28,6 +28,10 @@ class WirelessManager:
     def isConnected(self):
         if self.bleCallback != None:
             return self.blePeripheral.is_connected()
+            
+    def isDisconnected(self):
+        if self.bleCallback != None:
+            return self.blePeripheral.is_disconnected()
     
     def send(self,data):
         if self.bleCallback != None:

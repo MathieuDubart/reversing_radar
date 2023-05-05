@@ -156,6 +156,9 @@ class BLESimplePeripheral:
 
     def is_connected(self):
         return len(self._connections) > 0
+    
+    def is_disconnected(self):
+        return len(self._connections) == 0
 
     def _advertise(self, interval_us=500000):
         print("Starting advertising")

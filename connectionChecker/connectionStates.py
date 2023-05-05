@@ -1,48 +1,69 @@
 class ConnectionState:
   def __init__(self):
     self.connected = False
-
-  def printConnection():
+  
+  def isConnected(self):
+    return self.connected
+  
+  def printConnection(self):
     pass
-
-class BleInitialState(ConnectionState):
-  def __init__(self):
-    super().__init__()
-
-  def printConnection():
-    print('Connecting to bluetooth...')
 
 class BleConnectedState(ConnectionState):
   def __init__(self):
     self.connected = True
   
-  def printConnection():
+  def isConnected(self):
+    return self.connected
+
+  def printConnection(self):
     print('Bluetooth connection established')
 
 class BleNotConnectedState(ConnectionState):
   def __init__(self):
     super().__init__()
   
-  def printConnection():
+  def isConnected(self):
+    return self.connected
+  
+  def printConnection(self):
     print('Unable to connect to bluetooth')
-
-class AckInitialState(ConnectionState):
-  def __init__(self):
-    super().__init__()
-
-  def printConnection():
-    print('Checking ACK...')
 
 class AckConnectedState(ConnectionState):
   def __init__(self):
     self.connected = True
   
-  def printConnection():
+  def isConnected(self):
+    return self.connected
+  
+  def printConnection(self):
     print('Ack verified')
 
 class AckNotConnectedState(ConnectionState):
   def __init__(self):
     super().__init__()
   
-  def printConnection():
+  def isConnected(self):
+    return self.connected
+  
+  def printConnection(self):
     print('Unable to verify Ack')
+
+class BleIsReady(ConnectionState):
+  def __init__(self):
+    self.connected = True
+
+  def isConnected(self):
+    return self.connected
+    
+  def printConnection(self):
+    print('Ble is ready')
+  
+class BleIsNotReady(ConnectionState):
+  def __init__(self):
+    super().__init__()
+
+  def isConnected(self):
+    return self.connected
+  
+  def printConnection(self):
+    print('Ble is not ready')
