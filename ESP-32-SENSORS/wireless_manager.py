@@ -36,4 +36,4 @@ class WirelessManager:
                 print("Message send:", data)
 
     def receive(self):
-        self.blePeripheral.on_write
+        self.blePeripheral.on_write()

@@ -1,6 +1,6 @@
 class ConnectionState:
   def __init__(self):
-    pass
+    self.connected = False
 
   def printConnection():
     pass
@@ -14,7 +14,7 @@ class BleInitialState(ConnectionState):
 
 class BleConnectedState(ConnectionState):
   def __init__(self):
-    super().__init__()
+    self.connected = True
   
   def printConnection():
     print('Bluetooth connection established')
@@ -32,3 +32,17 @@ class AckInitialState(ConnectionState):
 
   def printConnection():
     print('Checking ACK...')
+
+class AckConnectedState(ConnectionState):
+  def __init__(self):
+    self.connected = True
+  
+  def printConnection():
+    print('Ack verified')
+
+class AckNotConnectedState(ConnectionState):
+  def __init__(self):
+    super().__init__()
+  
+  def printConnection():
+    print('Unable to verify Ack')
