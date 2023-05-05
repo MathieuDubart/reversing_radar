@@ -2,7 +2,7 @@ from connectionStates import *
 from time import sleep
 
 class BleConnectionChecker:
-  def __init__(self,ble, nofTry = 3):
+  def __init__(self,ble, nofTry):
     self._ble = ble
     self._nofTry = nofTry
     self._currentState = BleInitialState()
@@ -37,7 +37,7 @@ class BleConnectionChecker:
 
 
 class AckChecker:
-  def __init__(self, ble, nofTry = 3):
+  def __init__(self, ble, nofTry):
     self._ble = ble
     self._nofTry = nofTry
     self._currentState = AckInitialState()
@@ -68,3 +68,10 @@ class AckChecker:
 
     self._printConnection()
     self.ackConnection = self._currentState.connected
+
+
+class BleAckChecker:
+  def __init__(self, BleChecker, ble, AckChecker, ack, nofTry = 3):
+    self._BleChecker = BleChecker(ble, nofTry)
+    self._AckChecker = AckChecker(ack, nofTry)
+    
