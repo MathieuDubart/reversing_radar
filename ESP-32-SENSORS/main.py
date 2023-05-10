@@ -5,10 +5,12 @@ import struct
 import time
 from hcsr04 import *
 from wireless_manager import *
+from connectionCheckersSensors import *
+from connectionStates import *
 
 class BLECallback(CommunicationCallback):
 
-    def __init__(self,bleName="sensor"):
+    def __init__(self,bleName="sensors"):
         self.bleName = bleName
     
     def connectionCallback(self):
@@ -37,13 +39,15 @@ sensor4 = HCSR04(trigger_pin=21, echo_pin=19, echo_timeout_us=10000)
 # redLed4 = Pin(26, Pin.OUT)
 # greenLed4 = Pin(14, Pin.OUT)
     
-wirelessManager = WirelessManager(BLECallback())
+wirelessManager = WirelessManager(BLECallback("sensors"))
+bleStateManager = BleStateManager(BleConnectionChecker,AckChecker, wirelessManager)
 
 try:
-    while True:
-        sleep_ms(1000)
-        wirelessManager.send("{}#{}#{}#{}".format(sensor1.getDistance(), sensor2.getDistance(), sensor3.getDistance(), sensor4.getDistance()))
-        wirelessManager.on_write()
+    bleStateManager.process()
+    if type(bleStateManager.currentState) == BleIsReady:
+        while True:
+            sleep_ms(1000)
+            wirelessManager.send("{}#{}#{}#{}".format(sensor1.getDistance(), sensor2.getDistance(), sensor3.getDistance(), sensor4.getDistance()))
             
 except KeyboardInterrupt:
     pass

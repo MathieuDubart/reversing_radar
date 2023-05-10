@@ -38,6 +38,17 @@ class AckConnectedState(ConnectionState):
   def printConnection(self):
     print('Ack verified')
 
+class AwaitingAck(ConnectionState):
+  def __init__(self):
+    super().__init__()
+  
+  def isConnected(self):
+    return self.connected
+  
+  def printConnection(self):
+    print('Awaiting Ack...')
+
+
 class AckNotConnectedState(ConnectionState):
   def __init__(self):
     super().__init__()

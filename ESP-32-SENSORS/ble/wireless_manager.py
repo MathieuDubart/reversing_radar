@@ -38,6 +38,3 @@ class WirelessManager:
             if self.blePeripheral.is_connected():
                 self.blePeripheral.send(data)
                 print("Message send:", data)
-
-    def receive(self):
-        self.blePeripheral.on_write()
