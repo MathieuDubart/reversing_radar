@@ -93,13 +93,12 @@ class AckChecker(ConnectionProtocol):
       print("Error: impossible to verify ACK after {} tries.".format(self._currentTry))
 
     self.printConnection()
-    self.ackConnection = self._currentState.isConnected()
+    self._ackConnection = self._currentState.isConnected()
 
 
 class BleStateManager:
-  def __init__(self, BleChecker, AckChecker, wirelessManager, nofTry = 3):
+  def __init__(self, BleChecker, wirelessManager, nofTry = 3):
     self._BleChecker = BleChecker(wirelessManager, nofTry)
-    self._AckChecker = AckChecker(wirelessManager, nofTry)
     self.currentState = BleIsNotReady()
     self.currentState.context = self
 
@@ -110,11 +109,11 @@ class BleStateManager:
   def process(self):
     self._BleChecker.checkBluetoothConnection()
     if type(self._BleChecker.getCurrentState()) == BleConnectedState:
-      self._AckChecker.checkAck()
-      if self._AckChecker.getCurrentState() == AckConnectedState:
+      self.wirelessManager.ackChecker.checkAck()
+      if self.wirelessManager.ackChecker.getCurrentState() == AckConnectedState:
         self._updateState(BleIsReady())
       else: 
-        self._AckChecker.printConnection()
+        self.wirelessManager.ackChecker.printConnection()
     else:
       self._BleChecker.printConnection()
     
