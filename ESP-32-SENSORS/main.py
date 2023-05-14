@@ -38,16 +38,14 @@ sensor3 = HCSR04(trigger_pin=16, echo_pin=4, echo_timeout_us=10000)
 sensor4 = HCSR04(trigger_pin=21, echo_pin=19, echo_timeout_us=10000)
 # redLed4 = Pin(26, Pin.OUT)
 # greenLed4 = Pin(14, Pin.OUT)
-    
-wirelessManager = WirelessManager(BLECallback("sensors"), AckChecker, nofTry = 3)
-bleStateManager = BleStateManager(BleConnectionChecker, wirelessManager, nofTry = 3)
+
+wirelessManager = WirelessManager(BLECallback("sensors"))
+bleStateManager = BleStateManager(BleConnectionChecker, wirelessManager, 3)
 
 try:
-    bleStateManager.process()
-    if type(bleStateManager.currentState) == BleIsReady:
-        while True:
-            sleep_ms(1000)
-            wirelessManager.send("{}#{}#{}#{}".format(sensor1.getDistance(), sensor2.getDistance(), sensor3.getDistance(), sensor4.getDistance()))
+    while True:
+        sleep_ms(1000)
+        wirelessManager.send("{}#{}#{}#{}".format(sensor1.getDistance(), sensor2.getDistance(), sensor3.getDistance(), sensor4.getDistance()))
             
 except KeyboardInterrupt:
     pass

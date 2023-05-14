@@ -21,7 +21,6 @@ class BleConnectionChecker(ConnectionProtocol):
     self._nofTry = nofTry
     self._currentState = BleNotConnectedState()
     self._currentState.context = self
-    self._bluetoothConnection = False
     self._currentTry = 0
   
   def _isConnected(self) -> bool:
@@ -41,7 +40,7 @@ class BleConnectionChecker(ConnectionProtocol):
 
     if self._isConnected():
       self._updateState(BleConnectedState())
-    elif self._nofTry > self._currentTry-1:
+    elif self._nofTry-1 > self._currentTry:
       print("Retrying to connect in 3s...")
       sleep(3)
       self._updateState(BleNotConnectedState())
@@ -53,7 +52,6 @@ class BleConnectionChecker(ConnectionProtocol):
       print("Error: impossible to connect to bluetooth after {} tries.".format(self._currentTry))
 
     self.printConnection()
-    self.bluetoothConnection = self._currentState.isConnected()
 
 
 class AckChecker(ConnectionProtocol):
@@ -109,11 +107,7 @@ class BleStateManager:
   def process(self):
     self._BleChecker.checkBluetoothConnection()
     if type(self._BleChecker.getCurrentState()) == BleConnectedState:
-      self.wirelessManager.ackChecker.checkAck()
-      if self.wirelessManager.ackChecker.getCurrentState() == AckConnectedState:
-        self._updateState(BleIsReady())
-      else: 
-        self.wirelessManager.ackChecker.printConnection()
+      self._updateState(BleIsReady())
     else:
       self._BleChecker.printConnection()
     
