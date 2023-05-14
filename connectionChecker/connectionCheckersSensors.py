@@ -91,7 +91,7 @@ class AckChecker(ConnectionProtocol):
       print("Error: impossible to verify ACK after {} tries.".format(self._currentTry))
 
     self.printConnection()
-    self.ackConnection = self._currentState.isConnected()
+    self._ackConnection = self._currentState.isConnected()
 
 
 class BleStateManager:

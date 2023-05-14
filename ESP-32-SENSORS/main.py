@@ -10,7 +10,7 @@ from connectionStates import *
 
 class BLECallback(CommunicationCallback):
 
-    def __init__(self,bleName="sensor"):
+    def __init__(self,bleName="sensors"):
         self.bleName = bleName
     
     def connectionCallback(self):
@@ -38,7 +38,7 @@ sensor3 = HCSR04(trigger_pin=16, echo_pin=4, echo_timeout_us=10000)
 sensor4 = HCSR04(trigger_pin=21, echo_pin=19, echo_timeout_us=10000)
 # redLed4 = Pin(26, Pin.OUT)
 # greenLed4 = Pin(14, Pin.OUT)
-    
+
 wirelessManager = WirelessManager(BLECallback("sensors"))
 bleStateManager = BleStateManager(BleConnectionChecker, wirelessManager, 3)
 
