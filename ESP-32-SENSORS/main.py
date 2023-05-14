@@ -5,6 +5,8 @@ import struct
 import time
 from hcsr04 import *
 from wireless_manager import *
+from connectionCheckersSensors import *
+from connectionStates import *
 
 class BLECallback(CommunicationCallback):
 
@@ -37,13 +39,13 @@ sensor4 = HCSR04(trigger_pin=21, echo_pin=19, echo_timeout_us=10000)
 # redLed4 = Pin(26, Pin.OUT)
 # greenLed4 = Pin(14, Pin.OUT)
     
-wirelessManager = WirelessManager(BLECallback())
+wirelessManager = WirelessManager(BLECallback("sensors"))
+bleStateManager = BleStateManager(BleConnectionChecker, wirelessManager, 3)
 
 try:
     while True:
         sleep_ms(1000)
         wirelessManager.send("{}#{}#{}#{}".format(sensor1.getDistance(), sensor2.getDistance(), sensor3.getDistance(), sensor4.getDistance()))
-        wirelessManager.on_write()
             
 except KeyboardInterrupt:
     pass
