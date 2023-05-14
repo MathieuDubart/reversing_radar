@@ -29,11 +29,18 @@ class BluetoothManager():
         break
 
     print("Connected")
-
+  
+  def _decrypt(self, v):
+    string = v.decode('UTF-8')
+    array = string.split('#')
+    print(array)
+  
   def _on_rx(self,v):
-    print("RX", bytes(v))
+    self._decrypt(bytes(v))
+
 
   def receive(self):
     self.central.on_notify(self._on_rx)
+  
   
   print("Disconnected")
