@@ -34,7 +34,7 @@ class BleConnectionChecker(ConnectionProtocol):
     self._currentState.printConnection()
 
   def getCurrentState(self):
-    return self._currentState
+    return True#self._currentState
 
   def checkBluetoothConnection(self):
 
