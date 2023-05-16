@@ -14,7 +14,7 @@ Black wire Breadboard -> ESP: 5v || White wire Breadboard -> ESP: Gnd
 
 Sensors Pins:
 
-1) Trigger: 35 | Echo: 34 -> Violet
+1) Trigger: 32 | Echo: 34 -> Violet
 2) Trigger: 25 | Echo: 33 -> Orange
 3) Trigger: 14 | Echo: 12 -> Red
 4) Trigger: 19 | Echo: 18 -> Blue
