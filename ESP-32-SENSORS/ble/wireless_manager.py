@@ -16,7 +16,7 @@ class CommunicationCallback:
     
 class WirelessManager:
     
-    def __init__(self,bleCallback = None, ackChecker = None, nofTry = 3):
+    def __init__(self,bleCallback = None, nofTry = 3):
         self.bleCallback = bleCallback
         
         if self.bleCallback != None:
@@ -24,7 +24,6 @@ class WirelessManager:
             self.ble = bluetooth.BLE()
             self.blePeripheral = BLESimplePeripheral(self.ble,name=self.bleCallback.bleName)
             self.blePeripheral.on_write(self.bleCallback.didReceiveCallback)
-            self.ackChecker = ackChecker(bleCallback,nofTry)
 
     def isConnected(self):
         if self.bleCallback != None:

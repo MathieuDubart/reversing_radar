@@ -45,6 +45,7 @@ bleStateManager = BleStateManager(BleConnectionChecker, wirelessManager, 3)
 try:
     bleStateManager.process()
     if type(bleStateManager.currentState) == BleIsReady:
+        print("toto")
         while True:
             sleep_ms(1000)
             wirelessManager.send("{}#{}#{}#{}".format(sensor1.getDistance(), sensor2.getDistance(), sensor3.getDistance(), sensor4.getDistance()))

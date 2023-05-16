@@ -34,7 +34,10 @@ class BleConnectionChecker(ConnectionProtocol):
     self._currentState.printConnection()
 
   def getCurrentState(self):
-    return self._currentState
+    if type(self._currentState) == BleConnectedState:
+      return True
+    else:
+      return False
 
   def checkBluetoothConnection(self):
 
@@ -71,7 +74,10 @@ class AckChecker(ConnectionProtocol):
     self._currentState.printConnection()
 
   def getCurrentState(self):
-    return self._currentState
+    if type(self._currentState) == AckConnectedState:
+      return True
+    else:
+      return False
         
   def checkAck(self):
     self._ble.send("ack")
@@ -107,9 +113,9 @@ class BleStateManager:
 
   def process(self):
     self._BleChecker.checkBluetoothConnection()
-    if self._BleChecker.getConnectionState():
+    if self._BleChecker.getCurrentState():
       self._AckChecker.checkAck()
-      if self._AckChecker.getConnectionState():
+      if self._AckChecker.getCurrentState():
         self._updateState(BleIsReady())
       else: 
         self._updateState(BleIsNotReady())
