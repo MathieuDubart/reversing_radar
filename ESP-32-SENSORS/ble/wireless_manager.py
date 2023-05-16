@@ -18,7 +18,7 @@ class WirelessManager:
     
     def __init__(self,bleCallback = None, ackChecker = None, nofTry = 3):
         self.bleCallback = bleCallback
-        
+        self.bleCallback.wirelessManager = self
         if self.bleCallback != None:
             from ble_simple_peripheral import bluetooth,BLESimplePeripheral
             self.ble = bluetooth.BLE()

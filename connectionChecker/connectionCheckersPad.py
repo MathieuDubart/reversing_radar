@@ -73,10 +73,8 @@ class AckChecker(ConnectionProtocol):
     return self._ackConnection
         
   def checkAck(self):
-    ack_res = self._ble.receive()
-    sleep(3)
     self._ble.send("ack")
-
+    ack_res = self._ble.receive()
     if ack_res == "ack":
       self._updateState(AckConnectedState())
     elif self._currentTry <= self._nofTry:
@@ -91,10 +89,10 @@ class AckChecker(ConnectionProtocol):
     self.ackConnection = self._currentState.isConnected()
 
 
-class BleIsReady:
-  def __init__(self, BleChecker, ble, AckChecker, ack, nofTry = 3):
+class BleAckAreReady:
+  def __init__(self, BleChecker, ble, AckChecker, nofTry = 3):
     self._BleChecker = BleChecker(ble, nofTry)
-    self._AckChecker = AckChecker(ack, nofTry)
+    self._AckChecker = AckChecker(ble, nofTry)
     self.currentState = BleIsNotReady()
     self.currentState.context = self
 
@@ -108,6 +106,7 @@ class BleIsReady:
       self._AckChecker.checkAck()
       if self._AckChecker.getConnectionState():
         self._updateState(BleIsReady())
+        self.currentState.printConnection()
       else: 
         self._AckChecker.printConnection()
     else:
