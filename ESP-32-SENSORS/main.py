@@ -12,6 +12,7 @@ class BLECallback(CommunicationCallback):
 
     def __init__(self,bleName="sensors"):
         self.bleName = bleName
+        self.wirelessManager = None
     
     def connectionCallback(self):
         print("Connected")
@@ -20,6 +21,8 @@ class BLECallback(CommunicationCallback):
         print("Disconected")
     
     def didReceiveCallback(self,value):
+        if value == "ack":
+            self.wirelessManager.send("ack")
         print(f"Received {value}")
     
 
@@ -45,7 +48,7 @@ bleStateManager = BleStateManager(BleConnectionChecker, wirelessManager, 3)
 try:
     while True:
         sleep_ms(100)
-        wirelessManager.send("{}#{}#{}#{}".format(sensor1.getDistance(), sensor2.getDistance(), sensor3.getDistance(), sensor4.getDistance()))
+        #wirelessManager.send("{}#{}#{}#{}".format(sensor1.getDistance(), sensor2.getDistance(), sensor3.getDistance(), sensor4.getDistance()))
             
 except KeyboardInterrupt:
     pass

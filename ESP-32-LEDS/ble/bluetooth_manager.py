@@ -3,12 +3,14 @@ from time import sleep
 from ble_simple_central import *
 import bluetooth
 from machine import Pin
+from connectionCheckersPad import *
 
 class BluetoothManager():
   def __init__(self):
     self.ble = bluetooth.BLE()
     self.central = BLESimpleCentral(self.ble)
     self.not_found = False
+    self.bleAckChecker = BleAckAreReady(BleConnectionChecker, self.ble, AckChecker)
     self.sensorsLeds= [[Pin(22, Pin.OUT), Pin(15, Pin.OUT)],
                       [Pin(19, Pin.OUT), Pin(18, Pin.OUT)],
                       [Pin(17, Pin.OUT), Pin(4, Pin.OUT)],
@@ -33,8 +35,9 @@ class BluetoothManager():
       if self.not_found:
         break
 
-    print("Connected")
-  
+    if self.central.is_connected():
+      self.bleAckChecker.process()
+      
   def _decrypt(self, v):
     string = v.decode('UTF-8')
     array = string.split('#')
