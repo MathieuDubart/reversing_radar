@@ -45,6 +45,7 @@ sensor4 = HCSR04(trigger_pin=21, echo_pin=19, echo_timeout_us=10000)
 wirelessManager = WirelessManager(BLECallback("sensors"))
 bleStateManager = BleStateManager(BleConnectionChecker, wirelessManager, 3)
 
+bleStateManager.process()
 try:
     while True:
         sleep_ms(100)

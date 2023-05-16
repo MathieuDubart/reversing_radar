@@ -35,8 +35,7 @@ class BluetoothManager():
       if self.not_found:
         break
 
-    if self.central.is_connected():
-      self.bleAckChecker.process()
+    self.bleAckChecker.process()
       
   def _decrypt(self, v):
     string = v.decode('UTF-8')
