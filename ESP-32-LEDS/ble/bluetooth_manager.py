@@ -7,7 +7,6 @@ from machine import Pin
 class BluetoothManager():
   def __init__(self):
     self.ble = bluetooth.BLE()
-    self.blePeripheral = BLESimplePeripheral(self.ble, name="pad")
     self.central = BLESimpleCentral(self.ble)
     self.not_found = False
 
