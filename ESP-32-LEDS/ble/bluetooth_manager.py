@@ -10,22 +10,12 @@ class BluetoothManager():
     self.ble = bluetooth.BLE()
     self.central = BLESimpleCentral(self.ble)
     self.not_found = False
-<<<<<<< HEAD
     self.nofLeds = 4
     self.sensorsLeds = [neopixel.NeoPixel(Pin(24), self.nofLeds),
                       neopixel.NeoPixel(Pin(25), self.nofLeds),
                       neopixel.NeoPixel(Pin(26), self.nofLeds),
                       neopixel.NeoPixel(Pin(27), self.nofLeds)]
     self.vibrationMotor = Pin(28, Pin.OUT)
-=======
-
-    self.sensorsLeds= [[Pin(22, Pin.OUT), Pin(15, Pin.OUT)],
-                      [Pin(19, Pin.OUT), Pin(18, Pin.OUT)],
-                      [Pin(17, Pin.OUT), Pin(4, Pin.OUT)],
-                      [Pin(26, Pin.OUT), Pin(14, Pin.OUT)],
-                      [Pin(26, Pin.OUT), Pin(14, Pin.OUT)],
-                      [Pin(26, Pin.OUT), Pin(14, Pin.OUT)]]
->>>>>>> f2d3047c04d52bebc8af4828028857cab6f0978b
 
   def _on_scan(self, addr_type, addr, name):
     if addr_type is not None:
