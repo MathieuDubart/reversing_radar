@@ -82,8 +82,7 @@ class AckChecker(ConnectionProtocol):
   def checkAck(self):
     self._ble.send("ack")
     self._updateState(AwaitingAck())
-    sleep(3)
-    ack_res = "toto"
+    ack_res = self._ble.receive()
     if ack_res == "ack":
       self._updateState(AckConnectedState())
     elif self._nofTry > self._currentTry-1:

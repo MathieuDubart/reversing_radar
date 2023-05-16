@@ -20,7 +20,7 @@ class BLECallback(CommunicationCallback):
         print("Disconected")
     
     def didReceiveCallback(self,value):
-        print(f"Received {value}")
+        return value
     
 
 sensor1 = HCSR04(trigger_pin=33, echo_pin=25, echo_timeout_us=10000)

@@ -3,10 +3,12 @@ from time import sleep
 from ble_simple_central import *
 import bluetooth
 from machine import Pin
+from ble_simple_peripheral import BLESimplePeripheral
 
 class BluetoothManager():
   def __init__(self):
     self.ble = bluetooth.BLE()
+    self.blePeripheral = BLESimplePeripheral(self.ble, name="pad")
     self.central = BLESimpleCentral(self.ble)
     self.not_found = False
     self.sensorsLeds= [[Pin(22, Pin.OUT), Pin(15, Pin.OUT)],
@@ -35,13 +37,24 @@ class BluetoothManager():
 
     print("Connected")
     
-
+  def _isAck(self,v):
+    if v == "ack":
+      return True
+    else:
+      return False
+    
+  def send(self,data):
+      if self.bleCallback != None:
+          if self.blePeripheral.is_connected():
+              self.blePeripheral.send(data)
+              print("Message send:", data)
+    
   def _decrypt(self, v):
     string = v.decode('UTF-8')
     array = string.split('#')
     return array
   
-  def _tunrOnLeds(self, array):
+  def _turnOnLeds(self, array):
     i = 0
     while i < len(array):
       if int(array[i]) >= 20:
@@ -61,7 +74,10 @@ class BluetoothManager():
       i+=1
         
   def _on_rx(self,v):
-    self._tunrOnLeds(self._decrypt(bytes(v)))
+    if self._isAck(bytes(v)):
+      self.send("ack")
+    else:
+      self._turnOnLeds(self._decrypt(bytes(v)))
 
 
   def receive(self):
