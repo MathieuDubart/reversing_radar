@@ -7,12 +7,20 @@
 
 ### Wiring:
 
+Wires: 1 tape = Vcc || 2 tapes = Gnd
+One wire color per sensor
+
+Black wire Breadboard -> ESP: 5v
+White wire Breadboard -> ESP: Gnd
+
 Sensors Pins:
 
-1) Trigger: 33 | Echo: 25
-2) Trigger: 32 | Echo: 35
-3) Trigger: 16 | Echo: 4
-4) Trigger: 21 | Echo: 19
+1) Trigger: 35 | Echo: 34 -> Violet
+2) Trigger: 25 | Echo: 33 -> Orange
+3) Trigger: 14 | Echo: 12 -> Red
+4) Trigger: 19 | Echo: 18 -> Blue
+5) Trigger: 16 | Echo: 4 -> Green
+6) Trigger: 15 | Echo: 2 -> Yellow
 
 LEDs Pins:
 1) Red: 22 | Green: 15
