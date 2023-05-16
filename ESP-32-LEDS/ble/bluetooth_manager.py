@@ -33,8 +33,6 @@ class BluetoothManager():
       sleep(1)
       if self.not_found:
         break
-
-    print("Connected")
     
   def _isAck(self,v):
     v = v.decode('UTF-8')
