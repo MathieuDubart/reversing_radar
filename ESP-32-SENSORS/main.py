@@ -24,7 +24,7 @@ class BLECallback(CommunicationCallback):
         return value
     
 
-sensor1 = HCSR04(trigger_pin=35, echo_pin=34, echo_timeout_us=10000)
+sensor1 = HCSR04(trigger_pin=32, echo_pin=34, echo_timeout_us=10000)
 # redLed1 = Pin(22, Pin.OUT)
 # greenLed1 = Pin(15, Pin.OUT)
 

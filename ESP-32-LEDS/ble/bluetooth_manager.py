@@ -13,6 +13,8 @@ class BluetoothManager():
     self.sensorsLeds= [[Pin(22, Pin.OUT), Pin(15, Pin.OUT)],
                       [Pin(19, Pin.OUT), Pin(18, Pin.OUT)],
                       [Pin(17, Pin.OUT), Pin(4, Pin.OUT)],
+                      [Pin(26, Pin.OUT), Pin(14, Pin.OUT)],
+                      [Pin(26, Pin.OUT), Pin(14, Pin.OUT)],
                       [Pin(26, Pin.OUT), Pin(14, Pin.OUT)]]
 
   def _on_scan(self, addr_type, addr, name):
