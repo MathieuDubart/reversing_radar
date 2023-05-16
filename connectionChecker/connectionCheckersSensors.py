@@ -16,8 +16,8 @@ class ConnectionProtocol:
 
 
 class BleConnectionChecker(ConnectionProtocol):
-  def __init__(self,ble, nofTry):
-    self._ble = ble
+  def __init__(self,wirelessManager, nofTry):
+    self._ble = wirelessManager
     self._nofTry = nofTry
     self._currentState = BleNotConnectedState()
     self._currentState.context = self
@@ -55,8 +55,8 @@ class BleConnectionChecker(ConnectionProtocol):
 
 
 class AckChecker(ConnectionProtocol):
-  def __init__(self, ble, nofTry):
-    self._ble = ble
+  def __init__(self, wirelessManager, nofTry):
+    self._ble = wirelessManager
     self._nofTry = nofTry
     self._currentState = AckNotConnectedState()
     self._currentState.context = self
@@ -95,8 +95,9 @@ class AckChecker(ConnectionProtocol):
 
 
 class BleStateManager:
-  def __init__(self, BleChecker, wirelessManager, nofTry = 3):
-    self._BleChecker = BleChecker(wirelessManager, nofTry)
+  def __init__(self, bleChecker, ackChecker, wirelessManager, nofTry = 3):
+    self._BleChecker = bleChecker(wirelessManager, nofTry)
+    self._AckChecker = ackChecker(wirelessManager, nofTry)
     self.currentState = BleIsNotReady()
     self.currentState.context = self
 
@@ -106,8 +107,14 @@ class BleStateManager:
 
   def process(self):
     self._BleChecker.checkBluetoothConnection()
-    if type(self._BleChecker.getCurrentState()) == BleConnectedState:
-      self._updateState(BleIsReady())
+    if self._BleChecker.getConnectionState():
+      self._AckChecker.checkAck()
+      if self._AckChecker.getConnectionState():
+        self._updateState(BleIsReady())
+      else: 
+        self._updateState(BleIsNotReady())
+        self._AckChecker.printConnection()
     else:
+      self._updateState(BleIsNotReady())
       self._BleChecker.printConnection()
     
