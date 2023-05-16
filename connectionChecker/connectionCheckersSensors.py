@@ -111,7 +111,7 @@ class BleStateManager:
     self.currentState.context = self
 
   def process(self):
-    self._BleChecker.wirelessManager.connect()
+    self._BleChecker._ble.connect()
     self._BleChecker.checkBluetoothConnection()
     if self._BleChecker.getCurrentState():
       self._AckChecker.checkAck()
