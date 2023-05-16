@@ -38,11 +38,11 @@ class WirelessManager:
 
     def _on_scan(self, addr_type, addr, name):
         if addr_type is not None:
-        print("Found peripheral:", addr_type, addr, name)
-        self.central.connect()
+            print("Found peripheral:", addr_type, addr, name)
+            self.central.connect()
         else:
-        self.not_found = True
-        print("No peripheral found.")
+            self.not_found = True
+            print("No peripheral found.")
             
     def _scan(self):
         self.central.scan(callback=self._on_scan)
