@@ -21,9 +21,7 @@ class BLECallback(CommunicationCallback):
         print("Disconected")
     
     def didReceiveCallback(self,value):
-        if value == "ack":
-            self.wirelessManager.send("ack")
-        print(f"Received {value}")
+        return value
     
 
 sensor1 = HCSR04(trigger_pin=33, echo_pin=25, echo_timeout_us=10000)
@@ -43,13 +41,15 @@ sensor4 = HCSR04(trigger_pin=21, echo_pin=19, echo_timeout_us=10000)
 # greenLed4 = Pin(14, Pin.OUT)
 
 wirelessManager = WirelessManager(BLECallback("sensors"))
-bleStateManager = BleStateManager(BleConnectionChecker, wirelessManager, 3)
+bleStateManager = BleStateManager(BleConnectionChecker, AckChecker, wirelessManager, 3)
 
 bleStateManager.process()
 try:
-    while True:
-        sleep_ms(100)
-        #wirelessManager.send("{}#{}#{}#{}".format(sensor1.getDistance(), sensor2.getDistance(), sensor3.getDistance(), sensor4.getDistance()))
+    bleStateManager.process()
+    if type(bleStateManager.currentState) == BleIsReady:
+        while True:
+            sleep_ms(1000)
+            wirelessManager.send("{}#{}#{}#{}".format(sensor1.getDistance(), sensor2.getDistance(), sensor3.getDistance(), sensor4.getDistance()))
             
 except KeyboardInterrupt:
     pass
