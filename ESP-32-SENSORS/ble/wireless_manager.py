@@ -32,6 +32,15 @@ class WirelessManager:
     def isDisconnected(self):
         if self.bleCallback != None:
             return self.blePeripheral.is_disconnected()
+        
+    def connect(self):
+        self._scan()
+        # Wait for connection...
+        while not self.central.is_connected():
+            sleep(1)
+            if self.not_found:
+                break
+
     
     def send(self,data):
         if self.bleCallback != None:

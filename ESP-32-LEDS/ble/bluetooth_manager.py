@@ -38,16 +38,15 @@ class BluetoothManager():
     print("Connected")
     
   def _isAck(self,v):
+    v = v.decode('UTF-8')
     if v == "ack":
       return True
     else:
       return False
     
   def send(self,data):
-      if self.bleCallback != None:
-          if self.blePeripheral.is_connected():
-              self.blePeripheral.send(data)
-              print("Message send:", data)
+    self.blePeripheral.send(data)
+    print("Message send:", data)
     
   def _decrypt(self, v):
     string = v.decode('UTF-8')
