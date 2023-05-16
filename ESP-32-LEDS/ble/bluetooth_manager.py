@@ -3,17 +3,19 @@ from time import sleep
 from ble_simple_central import *
 import bluetooth
 from machine import Pin
+import neopixel
 
 class BluetoothManager():
   def __init__(self):
     self.ble = bluetooth.BLE()
     self.central = BLESimpleCentral(self.ble)
     self.not_found = False
-
-    self.sensorsLeds= [[Pin(22, Pin.OUT), Pin(15, Pin.OUT)],
-                      [Pin(19, Pin.OUT), Pin(18, Pin.OUT)],
-                      [Pin(17, Pin.OUT), Pin(4, Pin.OUT)],
-                      [Pin(26, Pin.OUT), Pin(14, Pin.OUT)]]
+    self.nofLeds = 4
+    self.sensorsLeds = [neopixel.NeoPixel(Pin(24), self.nofLeds),
+                      neopixel.NeoPixel(Pin(25), self.nofLeds),
+                      neopixel.NeoPixel(Pin(26), self.nofLeds),
+                      neopixel.NeoPixel(Pin(27), self.nofLeds)]
+    self.vibrationMotor = Pin(28, Pin.OUT)
 
   def _on_scan(self, addr_type, addr, name):
     if addr_type is not None:
@@ -54,18 +56,26 @@ class BluetoothManager():
   def _turnOnLeds(self, array):
     i = 0
     while i < len(array):
-      if int(array[i]) >= 20:
+      if int(array[i]) >= 40:
         print(int(array[i]))
-        self.sensorsLeds[i][0].value(0)
-        self.sensorsLeds[i][1].value(1)
-      elif 0 < int(array[i]) < 20:
+        self.sensorsLeds[i][0] = (0, 255, 0)
+        self.vibrationMotor.value(0)
+        self.sensorsLeds[i].write()
+      elif 0 < int(array[i]) < 40:
         print(int(array[i]))
-        self.sensorsLeds[i][0].value(1)
-        self.sensorsLeds[i][1].value(0)
+        currentLed = 0
+        while currentLed < len(self.nofLeds):
+          self.sensorsLeds[i][currentLed] = (255, 0, 0)
+          self.vibrationMotor.value(1)
+          self.sensorsLeds[i].write()
+          currentLed += 1
       else:
         print(int(array[i]))
-        self.sensorsLeds[i][0].value(0)
-        self.sensorsLeds[i][1].value(1)
+        currentLed = 0
+        while currentLed < len(self.nofLeds):
+          self.sensorsLeds[i][currentLed] = ''
+          self.vibrationMotor.value(0)
+          currentLed += 1
 
       print('#####', i, '#####')
       i+=1

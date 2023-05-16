@@ -10,8 +10,7 @@
 Wires: 1 tape = Vcc || 2 tapes = Gnd
 One wire color per sensor
 
-Black wire Breadboard -> ESP: 5v
-White wire Breadboard -> ESP: Gnd
+Black wire Breadboard -> ESP: 5v || White wire Breadboard -> ESP: Gnd
 
 Sensors Pins:
 
