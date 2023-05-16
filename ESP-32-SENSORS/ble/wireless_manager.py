@@ -19,6 +19,7 @@ class WirelessManager:
     
     def __init__(self,bleCallback = None):
         self.bleCallback = bleCallback
+        self.not_found = False
 
         if self.bleCallback != None:
             from ble_simple_peripheral import bluetooth,BLESimplePeripheral
