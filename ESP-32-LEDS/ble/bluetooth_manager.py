@@ -74,7 +74,7 @@ class BluetoothManager():
         
   def _on_rx(self,v):
     if self._isAck(bytes(v)):
-      self.send("ack")
+      print("Ack received")
     else:
       self._turnOnLeds(self._decrypt(bytes(v)))
 
