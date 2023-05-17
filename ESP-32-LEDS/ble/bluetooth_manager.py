@@ -1,4 +1,3 @@
-from sensorManager import *
 from ble_simple_central import *
 from padManager import *
 import bluetooth
@@ -6,11 +5,11 @@ from time import sleep
 
 
 class BluetoothManager():
-  def __init__(self, lowParam = 0, highParam = 40, nofLeds = 4):
+  def __init__(self, lowParam = 40, highParam = 80, nofLeds = 4):
     self.ble = bluetooth.BLE()
     self.central = BLESimpleCentral(self.ble)
     self.not_found = False
-    self.padDelegate = padManager(lowParam = lowParam, highParam = highParam, nofLeds = nofLeds)
+    self.padManager = PadManager(lowParam = lowParam, highParam = highParam, nofLeds = nofLeds)
 
 
   def _on_scan(self, addr_type, addr, name):
@@ -49,7 +48,7 @@ class BluetoothManager():
     return array
   
   def _delegateToPad(self, valuesArray):
-    self.padDelegate.delegate(valuesArray = valuesArray)
+    self.padManager.delegate(valuesArray = valuesArray)
 
   def _on_rx(self,v):
     if self._isAck(bytes(v)):

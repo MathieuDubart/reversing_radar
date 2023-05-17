@@ -14,7 +14,7 @@ while i < len(valuesArray):
       self.vibrationMotor.value(1)
       self.sensorsLeds[i].write()
       currentLed += 1
-      
+
   else:
     print(int(valuesArray[i]))
     currentLed = 0
@@ -25,3 +25,12 @@ while i < len(valuesArray):
 
   print('#####', i, '#####')
   i+=1
+
+
+
+
+[NeoPixel(Pin(27), self.nofLeds),
+NeoPixel(Pin(19), self.nofLeds),
+NeoPixel(Pin(32), self.nofLeds),
+NeoPixel(Pin(23), self.nofLeds),
+NeoPixel(Pin(0), self.nofLeds)]

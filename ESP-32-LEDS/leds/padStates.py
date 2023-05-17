@@ -1,102 +1,103 @@
-class padStates:
+class PadStates:
   def __init__(self):
     pass
 
-  def __throughArray(self, minusLeds):
+  def turnOnBand(self, minusLeds):
     pass
 
-  def turnOnPad(self, ledsArray, index, valuesArray, minusLeds):
-    pass
+# RESTE: ALLUMER LES BONNES LEDS DE LA BONNE COULEUR
 
-
-class InitialState(padStates):
+class InitialState(PadStates):
   def __init__(self):
     super().__init__()
 
   def __str__(self):
-      return "Initial State"
+    return "Initial State"
     
-  def turnOnPad(self, ledsArray, valuesArray, minusLeds):
+  def turnOnBand(self, minusLeds):
     currentLed = 0
-    while currentLed < self.nofLeds:
-      ledsArray[self.context.i][currentLed] = (255, 0, 0)
-      self.vibrationMotor.value(1)
-      ledsArray[self.context.i].write()
+    while currentLed < self.context.padManager.nofLeds:
+      self.context.led[currentLed] = (0, 0, 0)
+      print(self.context.led[currentLed])
+      self.context.led.write()
       currentLed += 1
 
 
-class FarState(padStates):
+class FarState(PadStates):
   def __init__(self):
     super().__init__()
 
   def __str__(self):
     return "Far State"
   
-  def turnOnPad(self, ledsArray, index, valuesArray, minusLeds):
+  def turnOnBand(self, minusLeds):
     currentLed = 0
-    while currentLed < self.nofLeds:
-      ledsArray[index][currentLed] = (0, 0, 255)
-      self.vibrationMotor.value(1)
-      ledsArray[index].write()
+    while currentLed < self.context.padManager.nofLeds:
+      self.context.led[currentLed] = (0, 255, 0)
+      print(self.context.led[currentLed])
+      self.context.led.write()
       currentLed += 1
 
 
-class SemiFarState(padStates):
+class SemiFarState(PadStates):
   def __init__(self):
     super().__init__()
 
   def __str__(self):
     return "Semi Far State"
   
-  def turnOnPad(self, ledsArray, index, valuesArray, minusLeds):
+  def turnOnBand(self, minusLeds):
     currentLed = 0
-    while currentLed < self.nofLeds:
-      ledsArray[index][currentLed] = (0, 255, 0)
-      self.vibrationMotor.value(1)
-      ledsArray[index].write()
+    while currentLed < self.context.padManager.nofLeds:
+      self.context.led[currentLed] = (255, 234, 0)
+      print(self.context.led[currentLed])
+      self.context.led.write()
       currentLed += 1
 
 
-class SemiNearState(padStates):
+class SemiNearState(PadStates):
   def __init__(self):
     super().__init__()
 
   def __str__(self):
     return "Semi Near State"
 
-  def turnOnPad(self, ledsArray, index, valuesArray, minusLeds):
+  def turnOnBand(self, minusLeds):
     currentLed = 0
-    while currentLed < self.nofLeds:
-      ledsArray[index][currentLed] = (255, 255, 0)
-      self.vibrationMotor.value(1)
-      ledsArray[index].write()
+    while currentLed < self.context.padManager.nofLeds:
+      self.context.led[currentLed] = (255, 155, 0)
+      print(self.context.led[currentLed])
+      self.context.led.write()
       currentLed += 1
     
 
-class NearState(padStates):
+class NearState(PadStates):
   def __init__(self):
     super().__init__()
 
   def __str__(self):
     return "Near State"
 
-  def turnOnPad(self, ledsArray, index, valuesArray, minusLeds):
+  def turnOnBand(self, minusLeds):
     currentLed = 0
-    while currentLed < self.nofLeds:
-      ledsArray[index][currentLed] = (255, 0, 255)
-      self.vibrationMotor.value(1)
-      ledsArray[index].write()
+    while currentLed < self.context.padManager.nofLeds:
+      self.context.led[currentLed] = (255, 0, 0)
+      print(self.context.led[currentLed])
+      self.context.led.write()
       currentLed += 1
 
-
-class OutOfRangeState(padStates):
+class OutOfRangeState(PadStates):
   def __init__(self):
     super().__init__()
   
   def __str__(self):
     return "Out of Range State"
   
-  def turnOnPad(self, ledsArray, index, valuesArray, minusLeds):
-    self.redLed.value(0)
-    self.greenLed.value(0)
+  def turnOnBand(self, minusLeds):
+    currentLed = 0
+    while currentLed < self.context.padManager.nofLeds:
+      self.context.led[currentLed] = (0, 0, 0)
+      print(self.context.led[currentLed])
+      self.context.led.write()
+      currentLed += 1
   

@@ -1,58 +1,49 @@
 from padStates import *
 from machine import Pin
-from neopixel import NeoPixel
+from ledManager import *
 
-class padManager:
-  def __init__(self,lowParam, highParam, nofLeds):
+
+
+
+class PadManager:
+  def __init__(self, lowParam, highParam, nofLeds):
     self.lowParam = lowParam
     self.highParam = highParam
-    self.sensorsLeds = [NeoPixel(Pin(27), self.nofLeds),
-                        NeoPixel(Pin(19), self.nofLeds),
-                        NeoPixel(Pin(32), self.nofLeds),
-                        NeoPixel(Pin(23), self.nofLeds),
-                        NeoPixel(Pin(0), self.nofLeds)]
-    self.nofLeds = nofLeds
+    self.nofLeds = nofLeds - 1
+    self.sensorsLeds = [LedManager(27, self),
+                        LedManager(19, self),
+                        LedManager(32, self),
+                        LedManager(23, self),
+                        LedManager(0, self)]
     self.vibrationMotor = Pin(26, Pin.OUT)
-    self.currentState = InitialState()
-    self.currentState.context = self
 
-  def __stateManagement(self, newState, valuesArray, minusLeds = 0):
-    self.__updateState(newState)
-    self.currentState.turnOnPad(ledsArray = self.sensorsLeds, valuesArray = valuesArray, minusLeds = minusLeds)
-
-  def __updateState(self, newState):
-    if str(self.currentState) != str(newState):
-      self.currentState = newState
-      self.currentState.context = self
-      print("New State: ", self.currentState)
+  def __stateManagement(self, newState, index, minusLeds = 0):
+    self.sensorsLeds[index].__updateState(newState)
+    self.sensorsLeds[index].currentState.turnOnBand(minusLeds)
   
   def __stateChecking(self, valuesArray):
     i = 0
     while i < len(valuesArray):
       if int(valuesArray[i]) >= self.highParam:
         print(int(valuesArray[i]))
-        self.__updateState(FarState())
-        self.currentState.turnOnPad(ledsArray = self.sensorsLeds, index = i, valuesArray = valuesArray)
+        self.__stateManagement(FarState(), index = i)
 
-      elif self.lowParam*2 < int(valuesArray[i]) < self.highParam/2:
+      elif self.lowParam*1.25 < int(valuesArray[i]) < self.highParam:
         print(int(valuesArray[i]))
-        self.__stateManagement(self, SemiFarState(), valuesArray, 3)
+        self.__stateManagement(SemiFarState(), index = i, minusLeds = 2)
 
-      elif self.lowParam < int(valuesArray[i]) < self.lowParam*2:
+      elif self.lowParam/2 < int(valuesArray[i]) < self.lowParam*1.25:
         print(int(valuesArray[i]))
-        self.__stateManagement(self, SemiNearState(), valuesArray, 2)
+        self.__stateManagement(SemiNearState(), index = i, minusLeds = 1)
 
-      elif 0 < int(valuesArray[i]) < self.lowParam:
+      elif 0 < int(valuesArray[i]) < self.lowParam/2:
         print(int(valuesArray[i]))
-        self.__stateManagement(self, NearState(), valuesArray, 1)
+        self.__stateManagement(NearState(), index = i)
 
       else:
         print(int(valuesArray[i]))
-        self.__stateManagement(self, OutOfRangeState, valuesArray)
-
-      print('#####', i, '#####')
+        self.__stateManagement(OutOfRangeState(), index = i)
       i+=1  
-    
+    print ('##########################')
   def delegate(self, valuesArray):
-    print("Current State: ", self.currentState)
     self.__stateChecking(valuesArray = valuesArray)
