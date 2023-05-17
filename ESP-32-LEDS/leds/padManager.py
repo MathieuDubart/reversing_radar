@@ -9,7 +9,7 @@ class PadManager:
   def __init__(self, lowParam, highParam, nofLeds):
     self.lowParam = lowParam
     self.highParam = highParam
-    self.nofLeds = nofLeds - 1
+    self.nofLeds = nofLeds
     self.sensorsLeds = [LedManager(27, self),
                         LedManager(19, self),
                         LedManager(32, self),
