@@ -11,7 +11,7 @@ class BluetoothManager():
     self.central = BLESimpleCentral(self.ble)
     self.not_found = False
     self.nofLeds = 4
-    self.sensorsLeds = [neopixel.NeoPixel(Pin(24), self.nofLeds),
+    self.sensorsLeds = [neopixel.NeoPixel(Pin(14), self.nofLeds),
                       neopixel.NeoPixel(Pin(25), self.nofLeds),
                       neopixel.NeoPixel(Pin(26), self.nofLeds),
                       neopixel.NeoPixel(Pin(27), self.nofLeds)]
