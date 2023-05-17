@@ -3,7 +3,7 @@ from time import sleep
 from ble_simple_central import *
 import bluetooth
 from machine import Pin
-import neopixel
+from neopixel import NeoPixel
 
 class BluetoothManager():
   def __init__(self, lowParam = 40):
@@ -11,12 +11,12 @@ class BluetoothManager():
     self.central = BLESimpleCentral(self.ble)
     self.not_found = False
     self.nofLeds = 4
-    self.sensorsLeds = [neopixel.NeoPixel(Pin(14), self.nofLeds),
-                      neopixel.NeoPixel(Pin(25), self.nofLeds),
-                      neopixel.NeoPixel(Pin(26), self.nofLeds),
-                      neopixel.NeoPixel(Pin(27), self.nofLeds),
-                      neopixel.NeoPixel(Pin(16), self.nofLeds),
-                      neopixel.NeoPixel(Pin(17), self.nofLeds)]
+    self.sensorsLeds = [NeoPixel(Pin(14), self.nofLeds),
+                      NeoPixel(Pin(25), self.nofLeds),
+                      NeoPixel(Pin(26), self.nofLeds),
+                      NeoPixel(Pin(27), self.nofLeds),
+                      NeoPixel(Pin(16), self.nofLeds),
+                      NeoPixel(Pin(17), self.nofLeds)]
     self.vibrationMotor = Pin(12, Pin.OUT)
     self.lowParam = lowParam
 
