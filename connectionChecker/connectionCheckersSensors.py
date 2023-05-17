@@ -44,7 +44,7 @@ class BleConnectionChecker(ConnectionProtocol):
 
     if self._isConnected():
       self._updateState(BleConnectedState())
-    elif self._nofTry-1 > self._currentTry:
+    elif self._nofTry > self._currentTry:
       print("Retrying to connect in 3s...")
       sleep(3)
       self._updateState(BleNotConnectedState())
@@ -53,7 +53,7 @@ class BleConnectionChecker(ConnectionProtocol):
     else:
       self._updateState(BleNotConnectedState())
       self.printConnection()
-      print("Error: impossible to connect to bluetooth after {} tries.".format(self._currentTry))
+      print("Error: impossible to connect to bluetooth after {} tries.".format(self._currentTry-1))
 
     self.printConnection()
 

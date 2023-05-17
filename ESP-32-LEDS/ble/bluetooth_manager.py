@@ -6,7 +6,7 @@ from machine import Pin
 import neopixel
 
 class BluetoothManager():
-  def __init__(self):
+  def __init__(self, lowParam = 40):
     self.ble = bluetooth.BLE()
     self.central = BLESimpleCentral(self.ble)
     self.not_found = False
@@ -16,6 +16,7 @@ class BluetoothManager():
                       neopixel.NeoPixel(Pin(26), self.nofLeds),
                       neopixel.NeoPixel(Pin(27), self.nofLeds)]
     self.vibrationMotor = Pin(28, Pin.OUT)
+    self.lowParam = lowParam
 
   def _on_scan(self, addr_type, addr, name):
     if addr_type is not None:
@@ -56,12 +57,12 @@ class BluetoothManager():
   def _turnOnLeds(self, array):
     i = 0
     while i < len(array):
-      if int(array[i]) >= 40:
+      if int(array[i]) >= self.lowParam:
         print(int(array[i]))
         self.sensorsLeds[i][0] = (0, 255, 0)
         self.vibrationMotor.value(0)
         self.sensorsLeds[i].write()
-      elif 0 < int(array[i]) < 40:
+      elif 0 < int(array[i]) < self.lowParam:
         print(int(array[i]))
         currentLed = 0
         while currentLed < len(self.nofLeds):
