@@ -1,24 +1,17 @@
 from sensorManager import *
-from time import sleep
 from ble_simple_central import *
+from padManager import *
 import bluetooth
-from machine import Pin
-from neopixel import NeoPixel
+from time import sleep
+
 
 class BluetoothManager():
-  def __init__(self, lowParam = 40):
+  def __init__(self, lowParam = 0, highParam = 40, nofLeds = 4):
     self.ble = bluetooth.BLE()
     self.central = BLESimpleCentral(self.ble)
     self.not_found = False
-    self.nofLeds = 4
-    self.sensorsLeds = [NeoPixel(Pin(14), self.nofLeds),
-                      NeoPixel(Pin(25), self.nofLeds),
-                      NeoPixel(Pin(26), self.nofLeds),
-                      NeoPixel(Pin(27), self.nofLeds),
-                      NeoPixel(Pin(16), self.nofLeds),
-                      NeoPixel(Pin(17), self.nofLeds)]
-    self.vibrationMotor = Pin(12, Pin.OUT)
-    self.lowParam = lowParam
+    self.padDelegate = padManager(lowParam = lowParam, highParam = highParam, nofLeds = nofLeds)
+
 
   def _on_scan(self, addr_type, addr, name):
     if addr_type is not None:
@@ -55,39 +48,14 @@ class BluetoothManager():
     array = string.split('#')
     return array
   
+  def _delegateToPad(self, valuesArray):
+    self.padDelegate.delegate(valuesArray = valuesArray)
 
-  def _turnOnLeds(self, array):
-    i = 0
-    while i < len(array):
-      if int(array[i]) >= self.lowParam:
-        print(int(array[i]))
-        self.sensorsLeds[i][0] = (0, 255, 0)
-        self.vibrationMotor.value(0)
-        self.sensorsLeds[i].write()
-      elif 0 < int(array[i]) < self.lowParam:
-        print(int(array[i]))
-        currentLed = 0
-        while currentLed < self.nofLeds:
-          self.sensorsLeds[i][currentLed] = (255, 0, 0)
-          self.vibrationMotor.value(1)
-          self.sensorsLeds[i].write()
-          currentLed += 1
-      else:
-        print(int(array[i]))
-        currentLed = 0
-        while currentLed < self.nofLeds:
-          self.sensorsLeds[i][currentLed] = (0,0,0)
-          self.vibrationMotor.value(0)
-          currentLed += 1
-
-      print('#####', i, '#####')
-      i+=1
-        
   def _on_rx(self,v):
     if self._isAck(bytes(v)):
       print("Ack received")
     else:
-      self._turnOnLeds(self._decrypt(bytes(v)))
+      self._delegateToPad(self._decrypt(bytes(v)))
 
   def receive(self):
     self.central.on_notify(self._on_rx) 
