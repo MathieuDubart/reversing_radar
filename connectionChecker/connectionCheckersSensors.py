@@ -53,7 +53,7 @@ class BleConnectionChecker(ConnectionProtocol):
     else:
       self._updateState(BleNotConnectedState())
       self.printConnection()
-      print("Error: impossible to connect to bluetooth after {} tries.".format(self._currentTry-1))
+      print("Error: impossible to connect to bluetooth after {} tries.".format(self._currentTry))
 
     self.printConnection()
 
