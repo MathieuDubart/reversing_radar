@@ -2,7 +2,7 @@ from sensorManager import *
 from time import sleep
 from ble_simple_central import *
 import bluetooth
-import machine
+from machine import Pin
 import neopixel
 
 class BluetoothManager():
@@ -11,11 +11,13 @@ class BluetoothManager():
     self.central = BLESimpleCentral(self.ble)
     self.not_found = False
     self.nofLeds = 4
-    # self.sensorsLeds = [neopixel.NeoPixel(machine.Pin(14), self.nofLeds),
-    #                   neopixel.NeoPixel(machine.Pin(25), self.nofLeds),
-    #                   neopixel.NeoPixel(machine.Pin(26), self.nofLeds),
-    #                   neopixel.NeoPixel(machine.Pin(27), self.nofLeds)]
-    # self.vibrationMotor = machine.Pin(28, machine.Pin.OUT)
+    self.sensorsLeds = [neopixel.NeoPixel(Pin(14), self.nofLeds),
+                      neopixel.NeoPixel(Pin(25), self.nofLeds),
+                      neopixel.NeoPixel(Pin(26), self.nofLeds),
+                      neopixel.NeoPixel(Pin(27), self.nofLeds),
+                      neopixel.NeoPixel(Pin(16), self.nofLeds),
+                      neopixel.NeoPixel(Pin(17), self.nofLeds)]
+    self.vibrationMotor = Pin(12, Pin.OUT)
     self.lowParam = lowParam
 
   def _on_scan(self, addr_type, addr, name):
@@ -74,7 +76,7 @@ class BluetoothManager():
         print(int(array[i]))
         currentLed = 0
         while currentLed < self.nofLeds:
-          self.sensorsLeds[i][currentLed] = ''
+          self.sensorsLeds[i][currentLed] = (0,0,0)
           self.vibrationMotor.value(0)
           currentLed += 1
 
