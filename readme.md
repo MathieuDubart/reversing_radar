@@ -1,9 +1,10 @@
 # Reversing radar for electric wheeling chair
 
 ### Hardware:
-- 4 ultra-sound sensors
-- 2 ESP 32
-- LEDS
+- 6 ultra-sound sensors
+- 2 ESP32
+- 5 LEDS bands (4 Leds per band)
+- 1 vibration motor
 
 ### Wiring:
 
@@ -26,3 +27,13 @@ LEDs Pins:
 2) Red: 19 | Green: 18
 3) Red: 17 | Green: 4
 4) Red: 26 | Green: 14
+
+### ESP32 Config:
+
+- For sensors ESP32:
+
+Put all the files from ```ESP-32-SENSORS``` directory + ```connectionCheckersSensors``` & ```connectionStates``` from ```connectionChecker``` directory.
+
+- For pad ESP32:
+
+Put all the files from ```ESP-32-LEDS```dircetory + ```connectionCheckersPad``` & ```connectionStates``` from ```connectionChecker```directory.
