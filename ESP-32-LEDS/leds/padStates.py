@@ -19,8 +19,8 @@ class InitialState(PadStates):
     while currentLed < self.context.padManager.nofLeds:
       self.context.led[currentLed] = (0, 0, 0)
       print(self.context.led[currentLed])
-      self.context.led.write()
       currentLed += 1
+    self.context.led.write()
 
 
 class FarState(PadStates):
@@ -31,13 +31,13 @@ class FarState(PadStates):
     return "Far State"
   
   def turnOnBand(self, minusLeds):
-    currentLed = 0
+    self.context.led[0] = (0, 255, 0)
+    currentLed = 1
     while currentLed < self.context.padManager.nofLeds:
-      self.context.led[currentLed] = (0, 255, 0)
+      self.context.led[currentLed] = (0, 0, 0)
       print(self.context.led[currentLed])
-      self.context.led.write()
       currentLed += 1
-
+    self.context.led.write()
 
 class SemiFarState(PadStates):
   def __init__(self):
@@ -47,12 +47,14 @@ class SemiFarState(PadStates):
     return "Semi Far State"
   
   def turnOnBand(self, minusLeds):
-    currentLed = 0
+    self.context.led[0] = (0, 255, 0)
+    self.context.led[1] = (255, 204, 0)
+    currentLed = 2
     while currentLed < self.context.padManager.nofLeds:
-      self.context.led[currentLed] = (255, 234, 0)
+      self.context.led[currentLed] = (0, 0, 0)
       print(self.context.led[currentLed])
-      self.context.led.write()
       currentLed += 1
+    self.context.led.write()  
 
 
 class SemiNearState(PadStates):
@@ -63,12 +65,15 @@ class SemiNearState(PadStates):
     return "Semi Near State"
 
   def turnOnBand(self, minusLeds):
-    currentLed = 0
+    self.context.led[0] = (0, 255, 0)
+    self.context.led[1] = (255, 204, 0)
+    self.context.led[2] = (255, 70, 0)
+    currentLed = 3
     while currentLed < self.context.padManager.nofLeds:
-      self.context.led[currentLed] = (255, 155, 0)
+      self.context.led[currentLed] = (0, 0, 0)
       print(self.context.led[currentLed])
-      self.context.led.write()
       currentLed += 1
+    self.context.led.write()
     
 
 class NearState(PadStates):
@@ -79,12 +84,11 @@ class NearState(PadStates):
     return "Near State"
 
   def turnOnBand(self, minusLeds):
-    currentLed = 0
-    while currentLed < self.context.padManager.nofLeds:
-      self.context.led[currentLed] = (255, 0, 0)
-      print(self.context.led[currentLed])
-      self.context.led.write()
-      currentLed += 1
+    self.context.led[0] = (0, 255, 0)
+    self.context.led[1] = (255, 204, 0)
+    self.context.led[2] = (255, 70, 0)
+    self.context.led[3] = (255, 0, 0)
+    self.context.led.write()
 
 class OutOfRangeState(PadStates):
   def __init__(self):
@@ -96,8 +100,7 @@ class OutOfRangeState(PadStates):
   def turnOnBand(self, minusLeds):
     currentLed = 0
     while currentLed < self.context.padManager.nofLeds:
-      self.context.led[currentLed] = (0, 0, 0)
+      self.context.led[currentLed] = (0, 255, 0)
       print(self.context.led[currentLed])
-      self.context.led.write()
       currentLed += 1
-  
+    self.context.led.write()
