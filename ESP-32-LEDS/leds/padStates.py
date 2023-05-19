@@ -2,7 +2,7 @@ class PadStates:
   def __init__(self):
     pass
 
-  def turnOnBand(self, minusLeds):
+  def turnOnBand(self):
     pass
 
 # RESTE: ALLUMER LES BONNES LEDS DE LA BONNE COULEUR
@@ -14,7 +14,7 @@ class InitialState(PadStates):
   def __str__(self):
     return "Initial State"
     
-  def turnOnBand(self, minusLeds):
+  def turnOnBand(self):
     currentLed = 0
     while currentLed < self.context.padManager.nofLeds:
       self.context.led[currentLed] = (0, 0, 0)
@@ -30,7 +30,7 @@ class FarState(PadStates):
   def __str__(self):
     return "Far State"
   
-  def turnOnBand(self, minusLeds):
+  def turnOnBand(self):
     currentLed = 0
     while currentLed < 1:
       self.context.led[currentLed] = self.context.padManager.ledsColors[currentLed]
@@ -48,7 +48,7 @@ class SemiFarState(PadStates):
   def __str__(self):
     return "Semi Far State"
   
-  def turnOnBand(self, minusLeds):
+  def turnOnBand(self):
     currentLed = 0
     while currentLed < 2:
       self.context.led[currentLed] = self.context.padManager.ledsColors[currentLed]
@@ -68,7 +68,7 @@ class SemiNearState(PadStates):
   def __str__(self):
     return "Semi Near State"
 
-  def turnOnBand(self, minusLeds):
+  def turnOnBand(self):
     currentLed = 0
     while currentLed < 3:
       self.context.led[currentLed] = self.context.padManager.ledsColors[currentLed]
@@ -87,7 +87,7 @@ class NearState(PadStates):
   def __str__(self):
     return "Near State"
 
-  def turnOnBand(self, minusLeds):
+  def turnOnBand(self):
     currentLed = 0
     while currentLed < 4:
       self.context.led[currentLed] = self.context.padManager.ledsColors[currentLed]
@@ -105,7 +105,7 @@ class OutOfRangeState(PadStates):
   def __str__(self):
     return "Out of Range State"
   
-  def turnOnBand(self, minusLeds):
+  def turnOnBand(self):
     currentLed = 0
     while currentLed < self.context.padManager.nofLeds:
       self.context.led[currentLed] = (0, 255, 0)

@@ -18,9 +18,9 @@ class PadManager:
     self.vibrationMotor = Pin(26, Pin.OUT)
     self.ledsColors = [(0, 255, 0), (255, 204, 0), (255, 70, 0), (255, 0, 0)]
 
-  def __stateManagement(self, newState, index, minusLeds = 0):
+  def __stateManagement(self, newState, index):
     self.sensorsLeds[index].__updateState(newState)
-    self.sensorsLeds[index].currentState.turnOnBand(minusLeds)
+    self.sensorsLeds[index].currentState.turnOnBand()
   
   def __stateChecking(self, valuesArray):
     i = 0
@@ -31,11 +31,11 @@ class PadManager:
 
       elif self.lowParam*1.25 < int(valuesArray[i]) < self.highParam:
         print(int(valuesArray[i]))
-        self.__stateManagement(SemiFarState(), index = i, minusLeds = 2)
+        self.__stateManagement(SemiFarState(), index = i)
 
       elif self.lowParam/2 < int(valuesArray[i]) < self.lowParam*1.25:
         print(int(valuesArray[i]))
-        self.__stateManagement(SemiNearState(), index = i, minusLeds = 1)
+        self.__stateManagement(SemiNearState(), index = i)
 
       elif 0 < int(valuesArray[i]) < self.lowParam/2:
         print(int(valuesArray[i]))
