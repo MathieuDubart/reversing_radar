@@ -16,6 +16,7 @@ class PadManager:
                         LedManager(23, self),
                         LedManager(0, self)]
     self.vibrationMotor = Pin(26, Pin.OUT)
+    self.ledsColors = [(0, 255, 0), (255, 204, 0), (255, 70, 0), (255, 0, 0)]
 
   def __stateManagement(self, newState, index, minusLeds = 0):
     self.sensorsLeds[index].__updateState(newState)

@@ -31,11 +31,13 @@ class FarState(PadStates):
     return "Far State"
   
   def turnOnBand(self, minusLeds):
-    self.context.led[0] = (0, 255, 0)
-    currentLed = 1
+    currentLed = 0
+    while currentLed < 1:
+      self.context.led[currentLed] = self.context.padManager.ledsColors[currentLed]
+      currentLed += 1
+    
     while currentLed < self.context.padManager.nofLeds:
       self.context.led[currentLed] = (0, 0, 0)
-      print(self.context.led[currentLed])
       currentLed += 1
     self.context.led.write()
 
@@ -47,14 +49,16 @@ class SemiFarState(PadStates):
     return "Semi Far State"
   
   def turnOnBand(self, minusLeds):
-    self.context.led[0] = (0, 255, 0)
-    self.context.led[1] = (255, 204, 0)
-    currentLed = 2
+    currentLed = 0
+    while currentLed < 2:
+      self.context.led[currentLed] = self.context.padManager.ledsColors[currentLed]
+      currentLed += 1
+    
     while currentLed < self.context.padManager.nofLeds:
       self.context.led[currentLed] = (0, 0, 0)
-      print(self.context.led[currentLed])
       currentLed += 1
-    self.context.led.write()  
+    self.context.led.write()
+
 
 
 class SemiNearState(PadStates):
@@ -65,13 +69,13 @@ class SemiNearState(PadStates):
     return "Semi Near State"
 
   def turnOnBand(self, minusLeds):
-    self.context.led[0] = (0, 255, 0)
-    self.context.led[1] = (255, 204, 0)
-    self.context.led[2] = (255, 70, 0)
-    currentLed = 3
+    currentLed = 0
+    while currentLed < 3:
+      self.context.led[currentLed] = self.context.padManager.ledsColors[currentLed]
+      currentLed += 1
+    
     while currentLed < self.context.padManager.nofLeds:
       self.context.led[currentLed] = (0, 0, 0)
-      print(self.context.led[currentLed])
       currentLed += 1
     self.context.led.write()
     
@@ -84,10 +88,14 @@ class NearState(PadStates):
     return "Near State"
 
   def turnOnBand(self, minusLeds):
-    self.context.led[0] = (0, 255, 0)
-    self.context.led[1] = (255, 204, 0)
-    self.context.led[2] = (255, 70, 0)
-    self.context.led[3] = (255, 0, 0)
+    currentLed = 0
+    while currentLed < 4:
+      self.context.led[currentLed] = self.context.padManager.ledsColors[currentLed]
+      currentLed += 1
+    
+    while currentLed < self.context.padManager.nofLeds:
+      self.context.led[currentLed] = (0, 0, 0)
+      currentLed += 1
     self.context.led.write()
 
 class OutOfRangeState(PadStates):
