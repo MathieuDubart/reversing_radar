@@ -52,7 +52,6 @@ class BleConnectionChecker(ConnectionProtocol):
       self.checkBluetoothConnection()
     else:
       self._updateState(BleNotConnectedState())
-      self.printConnection()
       print("Error: impossible to connect to bluetooth after {} tries.".format(self._currentTry))
 
     self.printConnection()
@@ -81,19 +80,20 @@ class AckChecker(ConnectionProtocol):
       return False
         
   def checkAck(self):
-    self._ble.send("ack")
+    self._ble.send("ack-radar")
     self._updateState(AckConnectedState())
-    # if ack_res == "ack":
-    #   self._updateState(AckConnectedState())
-    # elif self._nofTry > self._currentTry-1:
-    #   print("Retrying ACK in 3s...")
-    #   sleep(3)
-    #   self._updateState(AckNotConnectedState())
-    #   self._currentTry = self._currentTry +1
-    #   self.checkAck()
-    # else:
-    #   self._updateState(AckNotConnectedState())
-    #   print("Error: impossible to verify ACK after {} tries.".format(self._currentTry))
+    ack_res = self._ble.receive()
+    if ack_res == "ack-radar":
+      self._updateState(AckConnectedState())
+    elif self._nofTry > self._currentTry-1:
+      print("Retrying ACK in 3s...")
+      sleep(3)
+      self._updateState(AckNotConnectedState())
+      self._currentTry = self._currentTry +1
+      self.checkAck()
+    else:
+      self._updateState(AckNotConnectedState())
+      print("Error: impossible to verify ACK after {} tries.".format(self._currentTry))
 
     self.printConnection()
     self._ackConnection = self._currentState.isConnected()
