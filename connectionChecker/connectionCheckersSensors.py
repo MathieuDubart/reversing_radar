@@ -1,5 +1,6 @@
 from connectionStates import *
 from time import sleep
+from machine import Timer
 
 class ConnectionProtocol:
   def __init__(self):
@@ -14,6 +15,7 @@ class ConnectionProtocol:
   def getConnection(self):
     pass
 
+timer = Timer(0)
 
 class BleConnectionChecker(ConnectionProtocol):
   def __init__(self,wirelessManager, nofTry):

@@ -1,4 +1,4 @@
-
+from time import sleep
 class CommunicationCallback:
     
     def __init__(self):
@@ -26,6 +26,7 @@ class WirelessManager:
             self.blePeripheral = BLESimplePeripheral(self.ble,name=self.bleCallback.bleName)
             self.blePeripheral.on_write(self.bleCallback.didReceiveCallback)
             self.central = BLESimpleCentral(self.ble)
+            self.not_found = False
 
     def isConnected(self):
         if self.bleCallback != None:
