@@ -23,24 +23,25 @@ class PadManager:
     i = 0
     while i < len(valuesArray):
       if int(valuesArray[i]) >= self.highParam:
-        print(int(valuesArray[i]))
         self.__stateManagement(FarState(), index = i)
+        print(int(valuesArray[i]),':',self.sensorsLeds[i].currentState)
 
       elif self.lowParam*1.25 < int(valuesArray[i]) < self.highParam:
-        print(int(valuesArray[i]))
         self.__stateManagement(SemiFarState(), index = i)
+        print(int(valuesArray[i]),':',self.sensorsLeds[i].currentState)
 
       elif self.lowParam/2 < int(valuesArray[i]) < self.lowParam*1.25:
-        print(int(valuesArray[i]))
         self.__stateManagement(SemiNearState(), index = i)
+        print(int(valuesArray[i]),':',self.sensorsLeds[i].currentState)
 
       elif 0 < int(valuesArray[i]) < self.lowParam/2:
-        print(int(valuesArray[i]))
         self.__stateManagement(NearState(), index = i)
+        print(int(valuesArray[i]),':',self.sensorsLeds[i].currentState)
 
       else:
-        print(int(valuesArray[i]))
         self.__stateManagement(OutOfRangeState(), index = i)
+        print(int(valuesArray[i]),':',self.sensorsLeds[i].currentState)
+
       i+=1  
     print ('##########################')
   def delegate(self, valuesArray):
