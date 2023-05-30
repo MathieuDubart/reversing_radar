@@ -1,7 +1,7 @@
 from bluetooth_manager import *
 
 # remplacer central par inbstance BTManager
-bleManager = BluetoothManager(lowParam = 40, highParam = 80, nofLeds = 4)
+bleManager = BluetoothManager()
 
 try:
   bleManager.connect()
