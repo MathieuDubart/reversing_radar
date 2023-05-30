@@ -47,6 +47,8 @@ class BluetoothManager():
   def _decrypt(self, v):
     string = v.decode('UTF-8')
     array = string.split('#')
+    array[2] = int(array[2])+int(array[3])/2
+    array.pop(3)
     return array
   
 

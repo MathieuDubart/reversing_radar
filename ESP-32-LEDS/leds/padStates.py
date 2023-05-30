@@ -5,7 +5,6 @@ class PadStates:
   def turnOnBand(self):
     pass
 
-# RESTE: ALLUMER LES BONNES LEDS DE LA BONNE COULEUR
 
 class InitialState(PadStates):
   def __init__(self):

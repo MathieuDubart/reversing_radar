@@ -2,9 +2,6 @@ from padStates import *
 from machine import Pin
 from ledManager import *
 
-
-
-
 class PadManager:
   def __init__(self, lowParam, highParam, nofLeds):
     self.lowParam = lowParam
