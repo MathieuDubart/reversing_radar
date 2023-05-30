@@ -1,21 +1,18 @@
-from sensorManager import *
-from time import sleep
 from ble_simple_central import *
+from padManager import *
 import bluetooth
-from machine import Pin
+from time import sleep
 from ble_simple_peripheral import *
 
 class BluetoothManager():
-  def __init__(self):
+  def __init__(self, lowParam = 40, highParam = 80, nofLeds = 4):
     self.ble = bluetooth.BLE()
     self.blePeripheral = BLESimplePeripheral(self.ble, name="pad")
     self.central = BLESimpleCentral(self.ble)
     self.not_found = False
+    self.padManager = PadManager(lowParam = lowParam, highParam = highParam, nofLeds = nofLeds)
 
-    self.sensorsLeds= [[Pin(22, Pin.OUT), Pin(15, Pin.OUT)],
-                      [Pin(19, Pin.OUT), Pin(18, Pin.OUT)],
-                      [Pin(17, Pin.OUT), Pin(4, Pin.OUT)],
-                      [Pin(26, Pin.OUT), Pin(14, Pin.OUT)]]
+
 
   def _on_scan(self, addr_type, addr, name):
     if addr_type is not None:
@@ -55,33 +52,14 @@ class BluetoothManager():
     return array
   
 
-  def _turnOnLeds(self, array):
-    i = 0
-    while i < len(array):
-      if int(array[i]) >= 20:
-        print(int(array[i]))
-        self.sensorsLeds[i][0].value(0)
-        self.sensorsLeds[i][1].value(1)
-      elif 0 < int(array[i]) < 20:
-        print(int(array[i]))
-        self.sensorsLeds[i][0].value(1)
-        self.sensorsLeds[i][1].value(0)
-      else:
-        print(int(array[i]))
-        self.sensorsLeds[i][0].value(0)
-        self.sensorsLeds[i][1].value(1)
-
-      print('#####', i, '#####')
-      i+=1
+  def _delegateToPad(self, valuesArray):
+    self.padManager.delegate(valuesArray = valuesArray)
         
   def _on_rx(self,v):
     if self._isAck(bytes(v)):
       print("Ack received")
     else:
-      self._turnOnLeds(self._decrypt(bytes(v)))
+      self._delegateToPad(self._decrypt(bytes(v)))
 
   def receive(self):
-    self.central.on_notify(self._on_rx) 
-  
-  
-  print("Disconnected")
+    self.central.on_notify(self._on_rx)
