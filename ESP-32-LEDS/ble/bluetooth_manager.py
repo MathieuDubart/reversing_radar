@@ -2,12 +2,10 @@ from ble_simple_central import *
 from padManager import *
 import bluetooth
 from time import sleep
-from ble_simple_peripheral import *
 
 class BluetoothManager():
   def __init__(self, lowParam = 40, highParam = 80, nofLeds = 4):
     self.ble = bluetooth.BLE()
-    self.blePeripheral = BLESimplePeripheral(self.ble, name="pad")
     self.central = BLESimpleCentral(self.ble)
     self.not_found = False
     self.padManager = PadManager(lowParam = lowParam, highParam = highParam, nofLeds = nofLeds)
