@@ -34,7 +34,7 @@ class BluetoothManager():
     
   def _isAck(self,v):
     v = v.decode('UTF-8')
-    if v == "ack":
+    if v == "ack-radar":
       return True
     else:
       return False
