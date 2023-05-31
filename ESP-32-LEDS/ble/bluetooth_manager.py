@@ -55,6 +55,7 @@ class BluetoothManager():
   def _on_rx(self,v):
     if self._isAck(bytes(v)):
       print("Ack received")
+      print(v)
       self._send("ack-radar")
     else:
       self._delegateToPad(self._decrypt(bytes(v)))

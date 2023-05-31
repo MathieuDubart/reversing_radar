@@ -1,6 +1,5 @@
 from connectionStates import *
 from time import sleep
-from machine import Timer
 
 class ConnectionProtocol:
   def __init__(self):
@@ -15,7 +14,6 @@ class ConnectionProtocol:
   def getConnection(self):
     pass
 
-timer = Timer(0)
 
 class BleConnectionChecker(ConnectionProtocol):
   def __init__(self,wirelessManager, nofTry):
@@ -85,6 +83,7 @@ class AckChecker(ConnectionProtocol):
     self._ble.send("ack-radar")
     self._updateState(AwaitingAck())
     ack_res = self._ble.receive()
+    print(ack_res)
     if ack_res == "ack-radar":
       self._updateState(AckConnectedState())
     elif self._nofTry > self._currentTry-1:
