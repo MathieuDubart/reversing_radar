@@ -10,8 +10,6 @@ class BluetoothManager():
     self.not_found = False
     self.padManager = PadManager(lowParam = lowParam, highParam = highParam, nofLeds = nofLeds)
 
-
-
   def _on_scan(self, addr_type, addr, name):
     if addr_type is not None:
       print("Found peripheral:", addr_type, addr, name)
@@ -35,14 +33,13 @@ class BluetoothManager():
     
   def _isAck(self,v):
     v = v.decode('UTF-8')
-    if v == "ack":
+    if v == "ack-radar":
       return True
     else:
       return False
     
-  def send(self,data):
-    self.blePeripheral.send(data)
-    print("Message send:", data)
+  def _send(self,data):
+    self.central.write(data)
     
   def _decrypt(self, v):
     string = v.decode('UTF-8')
@@ -58,6 +55,7 @@ class BluetoothManager():
   def _on_rx(self,v):
     if self._isAck(bytes(v)):
       print("Ack received")
+      self._send("ack-radar")
     else:
       self._delegateToPad(self._decrypt(bytes(v)))
 
