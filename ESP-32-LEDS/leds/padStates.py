@@ -20,6 +20,7 @@ class InitialState(PadStates):
       print(self.context.led[currentLed])
       currentLed += 1
     self.context.led.write()
+    self.context.padManager.vibrationMotor.value(0)
 
 
 class FarState(PadStates):
@@ -39,6 +40,8 @@ class FarState(PadStates):
       self.context.led[currentLed] = (0, 0, 0)
       currentLed += 1
     self.context.led.write()
+    self.context.padManager.vibrationMotor.value(0)
+
 
 class SemiFarState(PadStates):
   def __init__(self):
@@ -57,7 +60,7 @@ class SemiFarState(PadStates):
       self.context.led[currentLed] = (0, 0, 0)
       currentLed += 1
     self.context.led.write()
-
+    self.context.padManager.vibrationMotor.value(0)
 
 
 class SemiNearState(PadStates):
@@ -77,6 +80,7 @@ class SemiNearState(PadStates):
       self.context.led[currentLed] = (0, 0, 0)
       currentLed += 1
     self.context.led.write()
+    self.context.padManager.vibrationMotor.value(1)
     
 
 class NearState(PadStates):
@@ -96,6 +100,8 @@ class NearState(PadStates):
       self.context.led[currentLed] = (0, 0, 0)
       currentLed += 1
     self.context.led.write()
+    self.context.padManager.vibrationMotor.value(1)
+
 
 class OutOfRangeState(PadStates):
   def __init__(self):
@@ -111,3 +117,4 @@ class OutOfRangeState(PadStates):
       print(self.context.led[currentLed])
       currentLed += 1
     self.context.led.write()
+    self.context.padManager.vibrationMotor.value(0)
