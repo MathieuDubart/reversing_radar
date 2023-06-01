@@ -81,25 +81,25 @@ class AckChecker(ConnectionProtocol):
         
   def checkAck(self):
     self._ble.send("ack-radar")
-    self._updateState(AwaitingAck())
+    self._updateState(AckConnectedState())
     
-    ack_res = ""
-    while ack_res == "":
-      ack_res = self._ble.receive()
-      print(ack_res)
+    # ack_res = ""
+    # while ack_res == "":
+    #   ack_res = self._ble.receive()
+    #   print(ack_res)
       
-    if ack_res == "ack-radar":
-      self._updateState(AckConnectedState())
-      print("ack connected state")
-    elif self._nofTry > self._currentTry-1:
-      print("Retrying ACK in 3s...")
-      sleep(3)
-      self._updateState(AckNotConnectedState())
-      self._currentTry = self._currentTry +1
-      self.checkAck()
-    else:
-      self._updateState(AckNotConnectedState())
-      print("Error: impossible to verify ACK after {} tries.".format(self._currentTry))
+    # if ack_res == "ack-radar":
+    #   self._updateState(AckConnectedState())
+    #   print("ack connected state")
+    # elif self._nofTry > self._currentTry-1:
+    #   print("Retrying ACK in 3s...")
+    #   sleep(3)
+    #   self._updateState(AckNotConnectedState())
+    #   self._currentTry = self._currentTry +1
+    #   self.checkAck()
+    # else:
+    #   self._updateState(AckNotConnectedState())
+    #   print("Error: impossible to verify ACK after {} tries.".format(self._currentTry))
 
     self.printConnection()
     # self._ackConnection = self._currentState.isConnected()
