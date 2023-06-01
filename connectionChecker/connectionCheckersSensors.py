@@ -87,6 +87,7 @@ class AckChecker(ConnectionProtocol):
       ack_res = self._ble.receive()
     if ack_res == "ack-radar":
       self._updateState(AckConnectedState())
+      print("ack connected state")
     elif self._nofTry > self._currentTry-1:
       print("Retrying ACK in 3s...")
       sleep(3)
