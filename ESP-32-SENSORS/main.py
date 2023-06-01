@@ -21,6 +21,7 @@ class BLECallback(CommunicationCallback):
         print("Disconected")
     
     def didReceiveCallback(self,value):
+        print("message received:", value)
         return value
     
 
