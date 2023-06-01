@@ -11,7 +11,7 @@ class CommunicationCallback:
         print("Disconected")
     
     def didReceiveCallback(self,value):
-        print("message received:", value)
+        print("message received:", value.decode('UTF-8'))
         return value.decode('UTF-8')
     
     
