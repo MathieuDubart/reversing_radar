@@ -82,10 +82,9 @@ class AckChecker(ConnectionProtocol):
   def checkAck(self):
     self._ble.send("ack-radar")
     self._updateState(AwaitingAck())
-    ack_res = None
-    while type(ack_res) == None:
+    ack_res = ""
+    while ack_res == "":
       ack_res = self._ble.receive()
-      print(type(ack_res))
     if ack_res == "ack-radar":
       self._updateState(AckConnectedState())
     elif self._nofTry > self._currentTry-1:
@@ -99,7 +98,7 @@ class AckChecker(ConnectionProtocol):
       print("Error: impossible to verify ACK after {} tries.".format(self._currentTry))
 
     self.printConnection()
-    self._ackConnection = self._currentState.isConnected()
+    # self._ackConnection = self._currentState.isConnected()
 
 
 class BleStateManager:
