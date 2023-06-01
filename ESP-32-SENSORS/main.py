@@ -22,7 +22,7 @@ class BLECallback(CommunicationCallback):
     
     def didReceiveCallback(self,value):
         print("message received:", value)
-        return value
+        return value.decode('UTF-8')
     
 
 sensor1 = HCSR04(trigger_pin=32, echo_pin=34, echo_timeout_us=10000)

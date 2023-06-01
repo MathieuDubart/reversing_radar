@@ -12,7 +12,7 @@ class CommunicationCallback:
     
     def didReceiveCallback(self,value):
         print("message received:", value)
-        return value
+        return value.decode('UTF-8')
     
     
 class WirelessManager:
