@@ -2,16 +2,19 @@ class PadStates:
   def __init__(self):
     pass
 
+  def __str__(self):
+    pass
+
   def turnOnBand(self):
     pass
 
 
-class InitialState(PadStates):
+class PadInitialState(PadStates):
   def __init__(self):
     super().__init__()
 
   def __str__(self):
-    return "Initial State"
+    return "Pad Initial State"
     
   def turnOnBand(self):
     currentLed = 0
@@ -23,12 +26,12 @@ class InitialState(PadStates):
     self.context.padManager.vibrationMotor.value(0)
 
 
-class FarState(PadStates):
+class PadFarState(PadStates):
   def __init__(self):
     super().__init__()
 
   def __str__(self):
-    return "Far State"
+    return "Pad Far State"
   
   def turnOnBand(self):
     currentLed = 0
@@ -43,12 +46,12 @@ class FarState(PadStates):
     self.context.padManager.vibrationMotor.value(0)
 
 
-class SemiFarState(PadStates):
+class PadSemiFarState(PadStates):
   def __init__(self):
     super().__init__()
 
   def __str__(self):
-    return "Semi Far State"
+    return "Pad Semi Far State"
   
   def turnOnBand(self):
     currentLed = 0
@@ -63,12 +66,12 @@ class SemiFarState(PadStates):
     self.context.padManager.vibrationMotor.value(0)
 
 
-class SemiNearState(PadStates):
+class PadSemiNearState(PadStates):
   def __init__(self):
     super().__init__()
 
   def __str__(self):
-    return "Semi Near State"
+    return "Pad Semi Near State"
 
   def turnOnBand(self):
     currentLed = 0
@@ -83,12 +86,12 @@ class SemiNearState(PadStates):
     self.context.padManager.vibrationMotor.value(1)
     
 
-class NearState(PadStates):
+class PadNearState(PadStates):
   def __init__(self):
     super().__init__()
 
   def __str__(self):
-    return "Near State"
+    return "Pad Near State"
 
   def turnOnBand(self):
     currentLed = 0
@@ -103,7 +106,7 @@ class NearState(PadStates):
     self.context.padManager.vibrationMotor.value(1)
 
 
-class OutOfRangeState(PadStates):
+class PadOutOfRangeState(PadStates):
   def __init__(self):
     super().__init__()
   
