@@ -18,7 +18,7 @@ class PadManager:
   def __stateManagement(self, newState, index):
     self.sensorsLeds[index].__updateState(newState)
     self.sensorsLeds[index].currentState.turnOnBand()
-    self.vibrationMotor.ledsStates[index] = self.sensorsLeds[index].currentState
+    self.vibrationMotor.ledsStates[index] = type(self.sensorsLeds[index].currentState)
     self.vibrationMotor.currentState.turnOnMotor()
 
   def __stateChecking(self, valuesArray):

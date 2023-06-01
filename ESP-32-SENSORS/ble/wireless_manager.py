@@ -12,13 +12,13 @@ class CommunicationCallback:
     
     def didReceiveCallback(self,value):
         print("message received:", value.decode('UTF-8'))
-        return value.decode('UTF-8')
     
     
 class WirelessManager:
     
     def __init__(self,bleCallback = None):
         self.bleCallback = bleCallback
+        self.ack = ""
 
         if self.bleCallback != None:
             from ble_simple_peripheral import bluetooth,BLESimplePeripheral

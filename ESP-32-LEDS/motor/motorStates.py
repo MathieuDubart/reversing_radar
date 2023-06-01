@@ -17,7 +17,7 @@ class MotorInitialState(MotorStates):
     return "Motor Initial State"
   
   def turnOnMotor(self):
-    self.context.motor.value(0)
+    pass
 
 class MotorFarState(MotorStates):
   def __init__(self):

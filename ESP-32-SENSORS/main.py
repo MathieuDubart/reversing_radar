@@ -22,6 +22,10 @@ class BLECallback(CommunicationCallback):
     
     def didReceiveCallback(self,value):
         print("message received:", value.decode('UTF-8'))
+
+        if value.decode('UTF-8') == "ack-radar":
+            self.wirelessManager.ack = value.decode('UTF-8')
+            
         return value.decode('UTF-8')
     
 

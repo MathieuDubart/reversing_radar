@@ -1,11 +1,16 @@
-from machine import PWM
+from machine import Pin
 from motorStates import *
 from padStates import *
 
 class MotorManager:
   def __init__(self, motorPin):
-    self.motor = PWM(motorPin, 1024)
+    self.motor = Pin(motorPin, Pin.OUT)
     self.currentState = MotorInitialState()
+    self.ledsStates = [PadInitialState(),
+                      PadInitialState(),
+                      PadInitialState(),
+                      PadInitialState(),
+                      PadInitialState()]
 
   def __updateState(self, newState):
     if PadSemiNearState or PadNearState in self.ledsStates:
