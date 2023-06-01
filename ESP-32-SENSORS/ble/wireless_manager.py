@@ -11,7 +11,7 @@ class CommunicationCallback:
         print("Disconected")
     
     def didReceiveCallback(self,value):
-        print(f"Received {value}")
+        return value
     
     
 class WirelessManager:

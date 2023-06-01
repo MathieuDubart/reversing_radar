@@ -188,7 +188,9 @@ class BLESimpleCentral:
     def write(self, v, response=False):
         if not self.is_connected():
             return
+            print("ERR Central is not connected")
         self._ble.gattc_write(self._conn_handle, self._rx_handle, v, 1 if response else 0)
+        print("sent value:", v)
 
     # Set handler for when data is received over the UART.
     def on_notify(self, callback):
