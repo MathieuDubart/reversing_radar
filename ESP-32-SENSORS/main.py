@@ -12,7 +12,7 @@ class BLECallback(CommunicationCallback):
 
     def __init__(self,bleName="sensors"):
         self.bleName = bleName
-        self.wirelessManager = None
+        self.context = None
     
     def connectionCallback(self):
         print("Connected")
@@ -25,7 +25,7 @@ class BLECallback(CommunicationCallback):
 
         if value.decode('UTF-8') == "ack-radar":
             self.wirelessManager.ack = value.decode('UTF-8')
-            
+
         return value.decode('UTF-8')
     
 
