@@ -82,6 +82,7 @@ class AckChecker(ConnectionProtocol):
   def checkAck(self):
     self._ble.send("ack-radar")
     self._updateState(AwaitingAck())
+    ack_res = None
     while type(ack_res) == None:
       ack_res = self._ble.receive()
       print(type(ack_res))
