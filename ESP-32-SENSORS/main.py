@@ -44,7 +44,7 @@ try:
     bleStateManager.process()
     if type(bleStateManager.currentState) == BleIsReady:
         while True:
-            sleep_ms(1000)
+            sleep_ms(100)
             wirelessManager.send("{}#{}#{}#{}#{}#{}".format(sensor1.getDistance(), sensor2.getDistance(), sensor3.getDistance(), sensor4.getDistance(), sensor5.getDistance(), sensor6.getDistance()))
             
 except KeyboardInterrupt:
