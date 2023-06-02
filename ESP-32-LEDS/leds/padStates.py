@@ -111,7 +111,7 @@ class PadOutOfRangeState(PadStates):
   def turnOnBand(self):
     currentLed = 0
     while currentLed < self.context.padManager.nofLeds:
-      self.context.led[currentLed] = (0, 255, 0)
+      self.context.led[currentLed] = (0, 0, 0)
       print(self.context.led[currentLed])
       currentLed += 1
     self.context.led.write()
