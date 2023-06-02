@@ -1,6 +1,5 @@
 from bluetooth_manager import *
 
-
 bleManager = BluetoothManager()
 
 try:
