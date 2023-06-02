@@ -18,7 +18,7 @@ class WirelessManager:
     
     def __init__(self,bleCallback = None):
         self.bleCallback = bleCallback
-        self.bleCallback.wirelessManager = self
+        self.bleCallback.wirelessManager  = self
         self.ack = ""
 
         if self.bleCallback != None:
