@@ -82,7 +82,7 @@ class AckChecker(ConnectionProtocol):
   def checkAck(self):
     self._ble.send("ack-radar")
     self._updateState(AwaitingAck())
-      
+    print("_ble.ack:", self._ble.ack)
     if self._ble.ack == "ack-radar":
       self._updateState(AckConnectedState())
       print("ack connected state")

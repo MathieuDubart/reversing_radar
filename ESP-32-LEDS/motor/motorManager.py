@@ -13,10 +13,9 @@ class MotorManager:
                       PadInitialState]
 
   # Pas besoins du param newState
-  def __updateState(self, newState):
+  def __updateState(self):
     #boucle for de  ledstates
     # tu compte le nombre d'état différent de semi near ou near (tu l'app numberOfInactiveState)
-
 
     # si ce nb est de ledstats.lenght (5) alors aucun des leds est dans un etat qui 
     # necessite la vibration donc currentState = motorFarState
@@ -25,8 +24,8 @@ class MotorManager:
     # tu mets currentState à motorNearState
 
 
-    if type(self.currentState) != type(newState):
-      self.currentState = newState
+    if type(self.currentState) != type():
+      self.currentState = 
       self.currentState.context = self
       print("New State: ", self.currentState)
         

@@ -16,11 +16,11 @@ class PadManager:
     self.vibrationMotor = MotorManager(motorPin = 26)
     self.ledsColors = [(0, 255, 0), (255, 204, 0), (255, 70, 0), (255, 0, 0)]
 
-  def __stateManagement(self, newStateSensors, index, newStateMotor):
+  def __stateManagement(self, newStateSensors, index):
     self.sensorsLeds[index].__updateState(newStateSensors)
 
     self.vibrationMotor.ledsStates[index] = type(self.sensorsLeds[index].currentState)
-    self.vibrationMotor.__updateState(newStateMotor)
+    self.vibrationMotor.__updateState()
 
     self.sensorsLeds[index].currentState.turnOnBand()
     self.vibrationMotor.turnOnMotor()
@@ -29,23 +29,23 @@ class PadManager:
     i = 0
     while i < len(valuesArray):
       if int(valuesArray[i]) >= self.highParam:
-        self.__stateManagement(PadFarState(), i, MotorFarState())
+        self.__stateManagement(PadFarState(), i)
         print(int(valuesArray[i]),':',self.sensorsLeds[i].currentState)
 
       elif self.lowParam*1.25 < int(valuesArray[i]) < self.highParam:
-        self.__stateManagement(PadSemiFarState(), i, MotorFarState())
+        self.__stateManagement(PadSemiFarState(), i)
         print(int(valuesArray[i]),':',self.sensorsLeds[i].currentState)
 
       elif self.lowParam/2 < int(valuesArray[i]) < self.lowParam*1.25:
-        self.__stateManagement(PadSemiNearState(), i, MotorNearState())
+        self.__stateManagement(PadSemiNearState(), i)
         print(int(valuesArray[i]),':',self.sensorsLeds[i].currentState)
 
       elif 0 < int(valuesArray[i]) < self.lowParam/2:
-        self.__stateManagement(PadNearState(), i, MotorNearState())
+        self.__stateManagement(PadNearState(), i)
         print(int(valuesArray[i]),':',self.sensorsLeds[i].currentState)
 
       else:
-        self.__stateManagement(PadOutOfRangeState(), i, MotorOutOfRangeState())
+        self.__stateManagement(PadOutOfRangeState(), i)
         print(int(valuesArray[i]),':',self.sensorsLeds[i].currentState)
 
       i+=1  
