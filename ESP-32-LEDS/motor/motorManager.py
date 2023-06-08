@@ -14,6 +14,8 @@ class MotorManager:
 
   # Pas besoins du param newState
   def __updateState(self):
+    i = 0
+    nofInactiveStates = 0
     #boucle for de  ledstates
     # tu compte le nombre d'état différent de semi near ou near (tu l'app numberOfInactiveState)
 
@@ -23,9 +25,17 @@ class MotorManager:
     # sinon si numberOfInactiveState est < 5 alors
     # tu mets currentState à motorNearState
 
+    while i < len(self.ledsStates):
+      if ledsStates[i] != PadSemiNearState or ledsStates[i] != PadNearState:
+        nofInactiveStates += 1
+      
+      if nofInactiveStates > 0:
+        if type(self.currentState) != MotorNearState:
+          self.currentState = MotorNearState()
+      else:
+        if type(self.currentState) != MotorFarState:
+          self.currentState = MotorFarState()
 
-    if type(self.currentState) != type():
-      self.currentState = 
       self.currentState.context = self
       print("New State: ", self.currentState)
         

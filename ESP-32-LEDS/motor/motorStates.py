@@ -38,13 +38,3 @@ class MotorNearState(MotorStates):
   
   def turnOnMotor(self):
     self.context.motor.value(1)
-
-class MotorOutOfRangeState(MotorStates):
-  def __init__(self):
-    super().__init__()
-
-  def __str__(self):
-    return "Motor Out of Range States"
-  
-  def turnOnMotor(self):
-    self.context.motor.value(0)
