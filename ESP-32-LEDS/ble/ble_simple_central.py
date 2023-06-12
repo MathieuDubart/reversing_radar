@@ -6,6 +6,7 @@ import random
 import struct
 import time
 import micropython
+import binascii
 
 from ble_advertising import decode_services, decode_name
 
@@ -74,16 +75,25 @@ class BLESimpleCentral:
     def _irq(self, event, data):
         if event == _IRQ_SCAN_RESULT:
             addr_type, addr, adv_type, rssi, adv_data = data
-            if adv_type in (_ADV_IND, _ADV_DIRECT_IND) and _UART_SERVICE_UUID in decode_services(
-                adv_data
-            ):
-                # Found a potential device, remember it and stop scanning.
-                self._addr_type = addr_type
-                self._addr = bytes(
-                    addr
-                )  # Note: addr buffer is owned by caller so need to copy it.
-                self._name = decode_name(adv_data) or "?"
-                self._ble.gap_scan(None)
+
+            print("\n")
+            print("Device:")
+            print("Device MAC Address: %s" % (bytes(addr)))
+            print("Device Class: %s" % (adv_type))
+            print("\n")
+            print("{}".format(bytes(addr)))
+            if bytes(addr) == b'\x0c\xb8\x15\xf8rR':
+                print("TROUVE")
+                if adv_type in (_ADV_IND, _ADV_DIRECT_IND) and _UART_SERVICE_UUID in decode_services(
+                    adv_data
+                ):
+                    # Found a potential device, remember it and stop scanning.
+                    self._addr_type = addr_type
+                    self._addr = bytes(
+                        addr
+                    )  # Note: addr buffer is owned by caller so need to copy it.
+                    self._name = decode_name(adv_data) or "?"
+                    self._ble.gap_scan(None)
 
         elif event == _IRQ_SCAN_DONE:
             if self._scan_callback:
@@ -165,7 +175,7 @@ class BLESimpleCentral:
         self._addr_type = None
         self._addr = None
         self._scan_callback = callback
-        self._ble.gap_scan(2000, 30000, 30000)
+        self._ble.gap_scan(20000, 30000, 30000)
 
     # Connect to the specified device (otherwise use cached address from a scan).
     def connect(self, addr_type=None, addr=None, callback=None):

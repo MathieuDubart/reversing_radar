@@ -6,6 +6,7 @@ from time import sleep
 class BluetoothManager():
   def __init__(self, lowParam = 40, highParam = 80, nofLeds = 4):
     self.ble = bluetooth.BLE()
+    print(self.ble.config('mac'))
     self.central = BLESimpleCentral(self.ble)
     self.not_found = False
     self.padManager = PadManager(lowParam = lowParam, highParam = highParam, nofLeds = nofLeds)
