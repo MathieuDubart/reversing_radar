@@ -12,32 +12,33 @@ class MotorManager:
                       PadInitialState,
                       PadInitialState]
 
-  # Pas besoins du param newState
+  def __getNumberOfNearStateLeds(self):
+    nofNearStates = 0
+    for state in self.ledsStates:
+      if state == PadSemiNearState or state == PadNearState:
+        nofNearStates += 1
+
+    print("Number of near states:", nofNearStates)
+    return nofNearStates
+
+
   def __updateState(self):
-    i = 0
-    nofInactiveStates = 0
-    #boucle for de  ledstates
-    # tu compte le nombre d'état différent de semi near ou near (tu l'app numberOfInactiveState)
-
-    # si ce nb est de ledstats.lenght (5) alors aucun des leds est dans un etat qui 
-    # necessite la vibration donc currentState = motorFarState
-
-    # sinon si numberOfInactiveState est < 5 alors
-    # tu mets currentState à motorNearState
-
-    while i < len(self.ledsStates):
-      if ledsStates[i] != PadSemiNearState or ledsStates[i] != PadNearState:
-        nofInactiveStates += 1
-      
-      if nofInactiveStates > 0:
-        if type(self.currentState) != MotorNearState:
-          self.currentState = MotorNearState()
-      else:
-        if type(self.currentState) != MotorFarState:
-          self.currentState = MotorFarState()
-
+    if self.__getNumberOfNearStateLeds() == 0:
+      self.currentState = MotorOffState()
       self.currentState.context = self
-      print("New State: ", self.currentState)
-        
+    elif self.__getNumberOfNearStateLeds() == 1:
+      self.currentState = MotorSlowState()
+      self.currentState.context = self
+    elif self.__getNumberOfNearStateLeds() == 2:
+      self.currentState = MotorSemiSlowState()
+      self.currentState.context = self
+    elif self.__getNumberOfNearStateLeds() == 3:
+      self.currentState = MotorSemiFastState()
+      self.currentState.context = self
+    else:
+      self.currentState = MotorFastState()
+      self.currentState.context = self
+    print('Current State:', self.currentState)
+
   def turnOnMotor(self):
     self.currentState.turnOnMotor()

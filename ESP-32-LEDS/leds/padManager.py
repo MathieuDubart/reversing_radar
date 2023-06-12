@@ -30,26 +30,16 @@ class PadManager:
     while i < len(valuesArray):
       if int(valuesArray[i]) >= self.highParam:
         self.__stateManagement(PadFarState(), i)
-        print(int(valuesArray[i]),':',self.sensorsLeds[i].currentState)
-
       elif self.lowParam*1.25 < int(valuesArray[i]) < self.highParam:
         self.__stateManagement(PadSemiFarState(), i)
-        print(int(valuesArray[i]),':',self.sensorsLeds[i].currentState)
-
       elif self.lowParam/2 < int(valuesArray[i]) < self.lowParam*1.25:
         self.__stateManagement(PadSemiNearState(), i)
-        print(int(valuesArray[i]),':',self.sensorsLeds[i].currentState)
-
       elif 0 < int(valuesArray[i]) < self.lowParam/2:
         self.__stateManagement(PadNearState(), i)
-        print(int(valuesArray[i]),':',self.sensorsLeds[i].currentState)
-
       else:
         self.__stateManagement(PadOutOfRangeState(), i)
-        print(int(valuesArray[i]),':',self.sensorsLeds[i].currentState)
-
       i+=1  
-    print('##### DEBUG', self.vibrationMotor.ledsStates)
     print ('##########################')
+
   def delegate(self, valuesArray):
     self.__stateChecking(valuesArray = valuesArray)
