@@ -6,7 +6,6 @@ from time import sleep
 class BluetoothManager():
   def __init__(self, lowParam = 40, highParam = 80, nofLeds = 4):
     self.ble = bluetooth.BLE()
-    print(self.ble.config('mac'))
     self.central = BLESimpleCentral(self.ble)
     self.not_found = False
     self.padManager = PadManager(lowParam = lowParam, highParam = highParam, nofLeds = nofLeds)
@@ -45,7 +44,7 @@ class BluetoothManager():
   def _decrypt(self, v):
     string = v.decode('UTF-8')
     array = string.split('#')
-    if 0 < int(array[3]) < int(array[2]):
+    if 0 < int(array[3]) < int(array[2]) or (int(array[2]) < int(array[3])) and  int(array[2]) == -1 and 0 < int(array[3]):
       array[2] = array[3]
     array.pop(3)
     print(array)

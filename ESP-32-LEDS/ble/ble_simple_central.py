@@ -75,15 +75,7 @@ class BLESimpleCentral:
     def _irq(self, event, data):
         if event == _IRQ_SCAN_RESULT:
             addr_type, addr, adv_type, rssi, adv_data = data
-
-            print("\n")
-            print("Device:")
-            print("Device MAC Address: %s" % (bytes(addr)))
-            print("Device Class: %s" % (adv_type))
-            print("\n")
-            print("{}".format(bytes(addr)))
             if bytes(addr) == b'\x0c\xb8\x15\xf8rR':
-                print("TROUVE")
                 if adv_type in (_ADV_IND, _ADV_DIRECT_IND) and _UART_SERVICE_UUID in decode_services(
                     adv_data
                 ):

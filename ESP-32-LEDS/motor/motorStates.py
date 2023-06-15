@@ -39,10 +39,7 @@ class MotorSlowState(MotorStates):
     return "Motor Slow States"
   
   def turnOnMotor(self):
-    self.context.motor.value(1)
-    sleep_ms(1500)
     self.context.motor.value(0)
-    sleep_ms(1500)
 
 class MotorSemiSlowState(MotorStates):
   def __init__(self):
@@ -53,10 +50,6 @@ class MotorSemiSlowState(MotorStates):
   
   def turnOnMotor(self):
     self.context.motor.value(1)
-    sleep_ms(1000)
-    self.context.motor.value(0)
-    sleep_ms(1000)
-
 class MotorSemiFastState(MotorStates):
   def __init__(self):
     super().__init__()
@@ -66,9 +59,6 @@ class MotorSemiFastState(MotorStates):
   
   def turnOnMotor(self):
     self.context.motor.value(1)
-    sleep_ms(500)
-    self.context.motor.value(0)
-    sleep_ms(500)
 
 class MotorFastState(MotorStates):
   def __init__(self):
